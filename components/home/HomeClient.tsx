@@ -100,13 +100,14 @@ function TestiCard({ t }: { t: TestimonialCard }) {
         flexShrink: 0,
         width: 338,
         marginRight: 18,
-        background: "#fff",
-        border: "1px solid rgba(0,0,0,.06)",
-        borderRadius: 20,
+        background: "var(--surface-card)",
+        border: "1px solid var(--border-hairline)",
+        borderRadius: "var(--radius-xl)",
         padding: 26,
-        boxShadow: "0 2px 16px rgba(0,0,0,.05)",
+        boxShadow: "var(--shadow-card)",
         display: "flex",
         flexDirection: "column",
+        fontFamily: "var(--font-sans)",
       }}
     >
       <span
@@ -117,7 +118,11 @@ function TestiCard({ t }: { t: TestimonialCard }) {
       </span>
       <div style={{ display: "flex", gap: 2, marginBottom: 12 }}>
         {Array.from({ length: 5 }, (_, i) => (
-          <span key={i} className="material-icons-outlined" style={{ fontSize: 16, color: "#e8a430" }}>
+          <span
+            key={i}
+            className="material-icons-outlined"
+            style={{ fontSize: 16, color: "var(--aq-warning)" }}
+          >
             star
           </span>
         ))}
@@ -127,7 +132,7 @@ function TestiCard({ t }: { t: TestimonialCard }) {
           fontFamily: "var(--font-sans)",
           fontSize: 14.5,
           lineHeight: 1.6,
-          color: "#3f3d3a",
+          color: "#4a4742",
           margin: "0 0 20px",
           display: "-webkit-box",
           WebkitLineClamp: 4,
@@ -155,8 +160,10 @@ function TestiCard({ t }: { t: TestimonialCard }) {
         <div style={{ minWidth: 0 }}>
           <div
             style={{
+              fontFamily: "var(--font-sans)",
               fontWeight: 800,
               fontSize: 14.5,
+              letterSpacing: "-.01em",
               color: "#14130f",
               whiteSpace: "nowrap",
               overflow: "hidden",
@@ -168,6 +175,7 @@ function TestiCard({ t }: { t: TestimonialCard }) {
           <div
             style={{
               fontSize: 12.5,
+              fontWeight: 600,
               color: "#736f68",
               whiteSpace: "nowrap",
               overflow: "hidden",
@@ -179,7 +187,7 @@ function TestiCard({ t }: { t: TestimonialCard }) {
           <div
             style={{
               fontSize: 12.5,
-              color: "#a8a49c",
+              color: "#8e8a83",
               whiteSpace: "nowrap",
               overflow: "hidden",
               textOverflow: "ellipsis",

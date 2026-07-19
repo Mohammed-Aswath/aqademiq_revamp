@@ -1,0 +1,59 @@
+/* ══════════════════════════════════════════════════════════════════════
+   AQADEMIQ · TYPE SYSTEM
+   Two voices: Plus Jakarta Sans does all UI + body work at heavy weights;
+   Playfair Display is the serif accent reserved for big numerals and the
+   occasional editorial stat. JetBrains Mono is a rare monospace fallback.
+
+   NOTE: the three families are loaded via next/font/google (see app/layout.tsx)
+   which exposes each as a CSS variable. The family tokens below reference those
+   variables so every component keeps using --font-sans / --font-display / etc.
+   ══════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Families ──────────────────────────────────────────────────────── */
+  --font-sans:     var(--font-plus-jakarta), system-ui, -apple-system, sans-serif;
+  --font-display:  var(--font-playfair), Georgia, serif;
+  --font-numeral:  var(--font-playfair), Georgia, serif;  /* big stat & timer numerals */
+  --font-mono:     var(--font-jetbrains), "Courier New", monospace;
+
+  /* ── Weights (Plus Jakarta is used HEAVY — 700/800 for almost all UI) ── */
+  --weight-regular:   400;
+  --weight-medium:    500;
+  --weight-semibold:  600;
+  --weight-bold:      700;
+  --weight-extrabold: 800;   /* the default for headings, buttons, labels */
+
+  /* ── Size scale (px — mobile-native, dense) ────────────────────────── */
+  --text-timer:    46px;   /* focus-ring numeral (Playfair)      */
+  --text-hero:     36px;   /* focus clock / big moment           */
+  --text-display:  32px;   /* screen title "Focus", "Welcome."   */
+  --text-title:    26px;   /* onboarding / check-in headline     */
+  --text-h1:       22px;   /* card hero title                    */
+  --text-h2:       18px;   /* sheet title                        */
+  --text-h3:       15px;   /* card title                         */
+  --text-lg:       14px;   /* button / primary control           */
+  --text-base:     12px;   /* body default                       */
+  --text-sm:       11px;   /* chips, meta                        */
+  --text-xs:       10px;   /* dense meta                         */
+  --text-2xs:      9px;    /* eyebrow labels (uppercase)         */
+
+  /* ── Line heights ──────────────────────────────────────────────────── */
+  --leading-tight:  1.2;   /* headings          */
+  --leading-snug:   1.4;
+  --leading-normal: 1.5;   /* body              */
+  --leading-relaxed:1.6;
+
+  /* ── Letter spacing ────────────────────────────────────────────────── */
+  --tracking-tighter: -2px;    /* huge numerals              */
+  --tracking-tight:   -0.5px;  /* display headings           */
+  --tracking-normal:  0;
+  --tracking-label:   0.12em;  /* uppercase eyebrow labels   */
+  --tracking-wide:    0.14em;
+}
+
+/* ── Optional utility classes (components mostly inline these tokens) ── */
+.aq-display   { font-family: var(--font-display); font-weight: 800; letter-spacing: var(--tracking-tight); }
+.aq-numeral   { font-family: var(--font-numeral); font-weight: 800; letter-spacing: var(--tracking-tighter); }
+.aq-heading   { font-family: var(--font-sans); font-weight: 800; letter-spacing: var(--tracking-tight); line-height: var(--leading-tight); }
+.aq-body      { font-family: var(--font-sans); font-weight: 400; line-height: var(--leading-normal); color: var(--text-primary); }
+.aq-eyebrow   { font-family: var(--font-sans); font-weight: 800; font-size: var(--text-2xs); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--text-dim); }

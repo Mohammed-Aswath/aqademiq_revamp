@@ -1,0 +1,58 @@
+.acc details {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+}
+.acc details:last-child {
+  border-bottom: none;
+}
+.acc summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 19px 2px;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(1rem, 1.25vw, 1.1rem);
+  color: #14130f;
+}
+.acc summary::-webkit-details-marker {
+  display: none;
+}
+.acc summary:hover {
+  color: #5941d6;
+}
+.acc .chev {
+  transition: transform 0.25s var(--ease-standard);
+  color: #a8a49c;
+  flex-shrink: 0;
+}
+.acc details[open] .chev {
+  transform: rotate(180deg);
+  color: #6b5cf0;
+}
+.ans {
+  padding: 0 2px 22px;
+  font-family: var(--font-sans);
+  font-size: 15.5px;
+  line-height: 1.62;
+  color: #4a4742;
+  max-width: 660px;
+}
+.ans b {
+  color: #14130f;
+}
+.acc details[open] .ans {
+  animation: aqFade 0.38s ease;
+}
+@keyframes aqFade {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

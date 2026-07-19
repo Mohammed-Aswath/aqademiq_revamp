@@ -1,0 +1,19 @@
+.sec {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: clamp(1.9rem, 3.6vw, 2.9rem);
+  letter-spacing: -0.028em;
+  line-height: 1.07;
+  margin: 0 0 16px;
+  color: #14130f;
+  text-wrap: balance;
+}
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8e8a83;
+  font-weight: 600;
+  margin-bottom: 14px;
+}

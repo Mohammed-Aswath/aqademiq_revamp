@@ -1,0 +1,45 @@
+/* ══════════════════════════════════════════════════════════════════════
+   AQADEMIQ · SPACING, RADII & LAYOUT
+   A tight 2px-based rhythm (mobile-native). Everything is a pill or a softly
+   rounded card — radii cluster around 12–20 with a full pill at 100.
+   ══════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Spacing scale (px) ────────────────────────────────────────────── */
+  --space-1:  2px;
+  --space-2:  4px;
+  --space-3:  6px;
+  --space-4:  8px;
+  --space-5:  10px;
+  --space-6:  12px;
+  --space-7:  14px;
+  --space-8:  16px;
+  --space-9:  18px;
+  --space-10: 20px;
+  --space-11: 22px;
+  --space-14: 28px;
+  --space-16: 32px;
+
+  /* ── Common padding recipes ────────────────────────────────────────── */
+  --pad-card:     12px 14px;   /* Card interior                */
+  --pad-button:   13px 16px;   /* pill button                  */
+  --pad-chip:     5px 12px;    /* filter chip                  */
+  --pad-tag:      5px 11px;    /* colored tag pill             */
+  --pad-screen:   0 16px;      /* mobile screen gutters        */
+
+  /* ── Corner radii ──────────────────────────────────────────────────── */
+  --radius-sm:     10px;   /* small tiles, keypad keys        */
+  --radius-md:     12px;   /* inputs, inner tiles             */
+  --radius-tab:    14px;   /* nav tab pill                    */
+  --radius-lg:     16px;   /* Card (the default surface)      */
+  --radius-xl:     20px;   /* nav bar, invite hero            */
+  --radius-2xl:    22px;   /* bottom sheets (top corners)     */
+  --radius-phone:  34px;   /* device shell                    */
+  --radius-pill:   100px;  /* buttons, chips, tags, section pills */
+
+  /* ── Device metrics (phone shell) ──────────────────────────────────── */
+  --phone-w:       262px;
+  --phone-h:       522px;
+  --nav-h:         56px;
+  --statusbar-h:   30px;
+}

@@ -1,0 +1,91 @@
+/* ══════════════════════════════════════════════════════════════════════
+   AQADEMIQ · COLOR SYSTEM
+   Warm paper canvas, ink-black pills, a periwinkle accent, and a signature
+   "melting ice" ramp that drives the Ada mascot + mood + focus states.
+   ══════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Brand accents (3 selectable brand hues) ───────────────────────── */
+  --aq-periwinkle:        #6b5cf0;   /* primary — the default Aqademiq accent */
+  --aq-periwinkle-soft:   #edeafd;   /* tint behind periwinkle (chips, fills) */
+  --aq-rose:              #e85476;   /* alt accent */
+  --aq-rose-soft:         #fde8ed;
+  --aq-green:             #2a9d6b;   /* alt accent + success */
+  --aq-green-soft:        #e8fdf3;
+
+  /* ── Ink & paper ───────────────────────────────────────────────────── */
+  --aq-ink:               #111111;   /* primary buttons, active nav pills, section pills */
+  --aq-white:             #ffffff;   /* card surface (light) */
+  --aq-paper:             #f4f3f0;   /* warm page canvas (default "Warm") */
+  --aq-paper-neutral:     #f5f5f5;   /* "Neutral" warmth */
+  --aq-paper-cool:        #f0f3f7;   /* "Cool" warmth */
+  --aq-hilite:            #eceae7;   /* recessed pill / keypad / track */
+  --aq-frame:             #dbd9d5;   /* device-frame backdrop (canvas) */
+
+  /* ── Neutrals / text ───────────────────────────────────────────────── */
+  --aq-text:              #111111;   /* primary text */
+  --aq-text-medium:       #777777;   /* secondary text */
+  --aq-text-dim:          #c0c0c0;   /* tertiary / placeholder / captions */
+  --aq-border:            rgba(0,0,0,0.07);  /* hairline dividers & card outlines */
+
+  /* ── Semantic status ───────────────────────────────────────────────── */
+  --aq-success:           #2a9d6b;
+  --aq-warning:           #e8a430;   /* guest locks, alerts */
+  --aq-danger:            #e85476;
+
+  /* ── Melting-ice ramp — Ada mascot, mood & focus (0 = melted/worst → 4 = frozen/best) ── */
+  --aq-ice-0-border:      #a79fc4;   --aq-ice-0-body: #eae8f2;  --aq-ice-0-ink: #938eac;  /* Rough  */
+  --aq-ice-1-border:      #9286d2;   --aq-ice-1-body: #e4ddf3;  --aq-ice-1-ink: #787299;  /* Tired  */
+  --aq-ice-2-border:      #7d70d9;   --aq-ice-2-body: #dcd3f7;  --aq-ice-2-ink: #5c5499;  /* OK     */
+  --aq-ice-3-border:      #6a5ce4;   --aq-ice-3-body: #d2c5fa;  --aq-ice-3-ink: #41358f;  /* Good   */
+  --aq-ice-4-border:      #5a44f1;   --aq-ice-4-body: #cbbcfd;  --aq-ice-4-ink: #31237c;  /* Great  */
+  --aq-frost:             #9fd6ef;   /* frozen-cube glow / paused ring */
+  --aq-drip:              #bfe6f5;   /* falling melt-drop */
+
+  /* ── Study tag palette (task & subject tags) ───────────────────────── */
+  --aq-tag-lecture:       #5cbbff;
+  --aq-tag-class:         #6b5cf0;
+  --aq-tag-exam:          #e85476;
+  --aq-tag-assignment:    #2a9d6b;
+  --aq-tag-report:        #e8a430;
+  --aq-tag-presentation:  #c0497b;
+  --aq-tag-reading:       #7a8699;
+
+  /* ── Signature gradient (invite / referral hero) ───────────────────── */
+  --aq-gradient-invite:   linear-gradient(135deg, #6b5cf0 0%, #b39df5 52%, #e9c8d8 100%);  /* @kind color */
+
+  /* ══ SEMANTIC ALIASES — reference these in components ═══════════════ */
+  --surface-page:         var(--aq-paper);
+  --surface-card:         var(--aq-white);
+  --surface-ink:          var(--aq-ink);      /* filled dark pills/buttons */
+  --surface-sunken:       var(--aq-hilite);   /* recessed tracks, keypads */
+
+  --text-primary:         var(--aq-text);
+  --text-secondary:       var(--aq-text-medium);
+  --text-dim:             var(--aq-text-dim);
+  --text-on-ink:          #ffffff;
+  --text-on-accent:       #ffffff;
+
+  --accent:               var(--aq-periwinkle);
+  --accent-soft:          var(--aq-periwinkle-soft);
+  --border-hairline:      var(--aq-border);
+}
+
+/* ── DARK THEME ────────────────────────────────────────────────────────
+   Add data-theme="dark" (or class .aq-dark) to a scope. Paper goes near-black,
+   cards lift to charcoal, the accent becomes the ink pill color. */
+[data-theme="dark"], .aq-dark {
+  --surface-page:         #0e0e0e;
+  --surface-card:         #1b1b1b;
+  --surface-ink:          var(--aq-periwinkle);  /* accent leads in the dark */
+  --surface-sunken:       #33333a;
+  --aq-frame:             #161616;
+
+  --text-primary:         #efefef;
+  --text-secondary:       #888888;
+  --text-dim:             #505050;
+  --border-hairline:      rgba(255,255,255,0.07);
+
+  --accent:               var(--aq-periwinkle);
+  --accent-soft:          #2a2340;
+}

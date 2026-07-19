@@ -1,0 +1,12 @@
+.link {
+  color: rgba(244, 243, 240, 0.6);
+  text-decoration: none;
+  transition: color 0.2s var(--ease-standard);
+}
+.link:hover {
+  color: #fff;
+}
+.toggle {
+  cursor: pointer;
+  transition: all 0.2s var(--ease-standard);
+}

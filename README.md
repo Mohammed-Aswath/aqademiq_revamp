@@ -34,14 +34,42 @@ Every former `#start` placeholder now reads `APP_URL` from `lib/config.ts` — f
 3. Set the environment variables above under **Settings → Environment Variables**.
 4. Deploy. Attach the `aqademiq.com` / `www` domain when ready and set `NEXT_PUBLIC_SITE_URL` to match.
 
-No `vercel.json` is needed. Every route is statically prerendered.
+No `vercel.json` is needed. Every page route is statically prerendered; `/api/support` runs as a serverless function.
+
+### Support form email (optional)
+
+`/support` has a contact form that POSTs to `app/api/support/route.ts`, which emails your support inbox via [Resend](https://resend.com). It is off by default — set `RESEND_API_KEY` (and, once your domain is verified in Resend, `SUPPORT_FROM_EMAIL` / `SUPPORT_TO_EMAIL`) in Vercel. Until then the form validates client- and server-side and gracefully points users to the direct email fallback shown on the page.
+
+## Prism sound engine (hero)
+
+The 20-second "Focus Sample" hero is powered by `lib/prism-engine.ts` — a Web Audio port of the Aqademiq Adaptive SoundScape Engine (originally Flutter + SoLoud; spec in `soundengine-for-flutter.md`). It plays the **real recorded stems** as a 4-layer generative bed:
+
+- **Pad** — always-on F# minor drone loop, faded to ~0.6
+- **Texture** — always-on masking loop (rain / sea / hum), level set from dB
+- **Pulse** — one-shot per beat on a BPM clock (density > 1.5 → half-beats)
+- **Spark** — stochastic one-shots, min 3 s gap, random pan ±0.7, level 0.4
+
+over a master bus: biquad low-pass → algorithmic convolver reverb → gain → compressor → analyser (the analyser also drives the cube's "bloom"). The five hero buttons map onto Prism parameter presets (Deep Work / Flow / Review / Wind-down / No sound) over the shared Focus stem set. Stems load lazily on the first play tap (~2.5 MB total) and the `AudioContext` is created/resumed inside that user gesture (autoplay-policy safe) and closed on unmount.
+
+### Rebuilding the audio assets
+
+The raw WAV stems (`assets/audio/stems/…`, ~217 MB — the two pads alone are 202 MB) are the **source of truth** but are **not served at runtime**; they're tracked with **Git LFS** (`.gitattributes`) and `.vercelignore`d. The browser only ever loads the small compressed MP3s in `public/audio/prism/` (~2.5 MB, regular git files) — those contain the same audio, just trimmed and compressed for the web.
+
+After cloning, fetch the source stems with `git lfs pull`. To regenerate the MP3s (trims the multi-minute pad drones to short loops and compresses everything):
+
+```bash
+git lfs pull                    # download the WAV stems from LFS
+node scripts/build-audio.mjs    # uses the ffmpeg-static devDependency
+```
 
 ## Structure
 
 ```
 app/                      route per page + root layout, sitemap.ts, robots.ts, globals.css
   page.tsx                Home (renders the HomeClient island)
-  how-it-works/ science/ about/ faq/ students/ privacy-policy/ terms-of-use/
+  how-it-works/ science/ about/ faq/ students/ support/ privacy-policy/ terms-of-use/
+  api/support/route.ts    support contact-form handler (emails via Resend when configured)
+  not-found.tsx           branded 404
 components/
   ds/                     design-system components ported to TSX (AdaCube, IceTimer, TaskCard, …)
   site/                   SiteHeader, SiteFooter, GetAppModal, GetAppButton, AppProvider, RevealController
@@ -49,9 +77,11 @@ components/
   how-it-works/           FocusDemo, AdaPlanDemo (scroll-triggered client islands)
 lib/
   config.ts               CTA / URL constants
-  audio-engine.ts         framework-free Web Audio graph for the hero
+  prism-engine.ts         Web Audio port of the Prism 4-layer sound engine + mode presets
   useReveal.ts            SSR-safe IntersectionObserver scroll-reveal hook
-  testimonials.ts         marquee data
+  testimonials.ts         marquee data (+ optimized photos in public/testimonials)
+scripts/build-audio.mjs   ffmpeg asset pipeline: WAV stems → public/audio/prism/*.mp3
+public/audio/prism/       shipped compressed stems (pad / texture / pulse / spark)
 styles/tokens/*.css       design-system tokens copied verbatim (colors, typography, spacing, effects)
 ```
 

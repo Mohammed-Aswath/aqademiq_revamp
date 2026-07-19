@@ -19,7 +19,7 @@ How the original `.dc.html` / `support.js` site maps onto this Next.js app, the 
 
 ## Routes
 
-`/` · `/how-it-works` · `/science` · `/about` · `/faq` · `/students` · `/privacy-policy` · `/terms-of-use` — plus generated `/sitemap.xml` and `/robots.txt`. Internal `X.dc.html#frag` links became `/x#frag`; in-page anchors and `:target` highlights (Science references, legal TOCs) are preserved.
+`/` · `/how-it-works` · `/science` · `/about` · `/faq` · `/students` · `/support` · `/privacy-policy` · `/terms-of-use` — plus generated `/sitemap.xml` and `/robots.txt`, a branded 404, and the `/api/support` form handler. Internal `X.dc.html#frag` links became `/x#frag`; in-page anchors and `:target` highlights (Science references, legal TOCs) are preserved.
 
 ## Deliberate deviations (with rationale)
 

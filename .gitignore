@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Raw WAV stems (incl. the 124 MB + 73 MB pads) are the source of truth and are
+# tracked via Git LFS (see .gitattributes). The *shipped* audio the site serves
+# is the compressed set in public/audio/prism (built by scripts/build-audio.mjs).
+
+# Original testimonial photos (optimized copies live in public/testimonials).
+/testimonial_images/

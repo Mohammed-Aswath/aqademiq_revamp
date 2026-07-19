@@ -6,7 +6,12 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { AdaCube, IceTimer, TaskCard } from "@/components/ds";
 import { useApp } from "@/components/site/AppProvider";
 import { APP_URL } from "@/lib/config";
-import { AudioEngine, MODES, MODE_KEYS, type ModeKey } from "@/lib/audio-engine";
+import {
+  PrismEngine,
+  PRISM_MODES,
+  PRISM_MODE_KEYS,
+  type PrismModeKey,
+} from "@/lib/prism-engine";
 import { testiRows, type TestimonialCard } from "@/lib/testimonials";
 import { useReveal } from "@/lib/useReveal";
 import styles from "./Home.module.css";
@@ -70,8 +75,8 @@ const groupLabel: CSSProperties = {
   marginBottom: 8,
 };
 
-function modeBtnStyle(k: ModeKey, on: boolean): CSSProperties {
-  const mm = MODES[k];
+function modeBtnStyle(k: PrismModeKey, on: boolean): CSSProperties {
+  const mm = PRISM_MODES[k];
   return {
     padding: "7px 13px",
     borderRadius: 100,
@@ -191,17 +196,18 @@ function TestiCard({ t }: { t: TestimonialCard }) {
 export function HomeClient() {
   const { openGetApp, reduce } = useApp();
 
-  const [mode, setModeState] = useState<ModeKey>("deepwork");
+  const [mode, setModeState] = useState<PrismModeKey>("deepwork");
   const [status, setStatusState] = useState<Status>("idle");
   const [progress, setProgressState] = useState(0);
   const [demoProgress, setDemoProgress] = useState(0);
   const [demoDone, setDemoDone] = useState(false);
   const [adaStep, setAdaStep] = useState(0);
+  const [audioLoading, setAudioLoading] = useState(false);
 
   const modeRef = useRef(mode);
   const statusRef = useRef(status);
   const progressRef = useRef(progress);
-  const engineRef = useRef<AudioEngine | null>(null);
+  const engineRef = useRef<PrismEngine | null>(null);
   const bloomRef = useRef<HTMLDivElement>(null);
   const loopRef = useRef<number | null>(null);
   const sessionStartRef = useRef(0);
@@ -209,7 +215,7 @@ export function HomeClient() {
 
   useReveal({ threshold: 0.12, rootMargin: "-6%" });
 
-  const setMode = (m: ModeKey) => {
+  const setMode = (m: PrismModeKey) => {
     modeRef.current = m;
     setModeState(m);
   };
@@ -225,8 +231,8 @@ export function HomeClient() {
   useEffect(() => {
     // Restore saved sound mode.
     try {
-      const m = localStorage.getItem("aq-mode") as ModeKey | null;
-      if (m && MODES[m]) setMode(m);
+      const m = localStorage.getItem("aq-mode") as PrismModeKey | null;
+      if (m && PRISM_MODES[m]) setMode(m);
     } catch {}
 
     // The two scroll-triggered demos + hero auto-pause + tab-hidden auto-pause.
@@ -292,21 +298,27 @@ export function HomeClient() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function ensureEngine(): AudioEngine {
-    if (!engineRef.current) engineRef.current = new AudioEngine();
+  function ensureEngine(): PrismEngine {
+    if (!engineRef.current) engineRef.current = new PrismEngine();
     return engineRef.current;
   }
-  function setBloomColor(m: ModeKey) {
+  function setBloomColor(m: PrismModeKey) {
     const el = bloomRef.current;
     if (!el) return;
-    const c = MODES[m].color;
+    const c = PRISM_MODES[m].color;
     el.style.background = `radial-gradient(circle, ${c}44, rgba(159,214,239,.12) 46%, transparent 70%)`;
   }
-  function applyMode(m: ModeKey, ramp: number) {
-    const eng = engineRef.current;
-    if (!eng || !eng.ctx) return;
-    eng.applyMode(m, ramp);
+  // Start (or restart) the Prism soundscape for a mode; loads stems on first use.
+  function startAudio(m: PrismModeKey) {
+    const mm = PRISM_MODES[m];
+    if (!mm.params) return;
+    const eng = ensureEngine();
     setBloomColor(m);
+    if (!eng.isLoaded) setAudioLoading(true);
+    eng
+      .start(mm.params)
+      .catch(() => {})
+      .finally(() => setAudioLoading(false));
   }
   function setBloom(a: number) {
     const el = bloomRef.current;
@@ -341,55 +353,42 @@ export function HomeClient() {
     if (p >= 1) completeSession();
   }
   function startSession() {
-    if (modeRef.current !== "nosound") {
-      const eng = ensureEngine();
-      eng.init(modeRef.current);
-      eng.resume();
-      applyMode(modeRef.current, 0.5);
-      eng.setMasterGain(0.18, 0.5);
-    }
+    startAudio(modeRef.current);
     sessionStartRef.current = performance.now() - progressRef.current * DUR * 1000;
     setStatus("playing");
     startLoop();
   }
   function pauseSession() {
     stopLoop();
-    const eng = engineRef.current;
-    if (eng && eng.ctx) {
-      eng.setMasterGain(0.0001, 0.3);
-      window.setTimeout(() => {
-        if (statusRef.current === "paused" && eng.state === "running") eng.suspend();
-      }, 360);
-    }
+    engineRef.current?.pause();
     setStatus("paused");
   }
   function resumeSession() {
     sessionStartRef.current = performance.now() - progressRef.current * DUR * 1000;
-    if (modeRef.current !== "nosound") {
-      const eng = ensureEngine();
-      eng.init(modeRef.current);
-      eng.resume();
-      eng.setMasterGain(0.18, 0.4);
+    const mm = PRISM_MODES[modeRef.current];
+    const eng = engineRef.current;
+    if (mm.params && eng) {
+      if (eng.state) {
+        eng.resume();
+        eng.setMode(mm.params);
+      } else {
+        startAudio(modeRef.current);
+      }
+    } else if (mm.params) {
+      startAudio(modeRef.current);
     }
     setStatus("playing");
     startLoop();
   }
   function completeSession() {
     stopLoop();
-    const eng = engineRef.current;
-    if (eng && eng.ctx) {
-      eng.setMasterGain(0.0001, 0.7);
-      window.setTimeout(() => {
-        if (eng.state === "running") eng.suspend();
-      }, 800);
-    }
+    engineRef.current?.stop();
     setStatus("done");
     setProgress(1);
   }
   function resetSession() {
     stopLoop();
-    const eng = engineRef.current;
-    if (eng && eng.ctx) eng.setMasterGain(0.0001, 0.2);
+    engineRef.current?.stop();
     setStatus("idle");
     setProgress(0);
     setBloom(0.25);
@@ -401,24 +400,21 @@ export function HomeClient() {
     else if (s === "paused") resumeSession();
     else resetSession();
   }
-  function selectMode(m: ModeKey) {
+  function selectMode(m: PrismModeKey) {
     setMode(m);
     try {
       localStorage.setItem("aq-mode", m);
     } catch {}
-    const s = statusRef.current;
-    if (s === "playing" || s === "paused") {
-      if (m !== "nosound") {
-        const eng = ensureEngine();
-        eng.init(m);
-        eng.resume();
-        applyMode(m, 0.5);
-        eng.setMasterGain(0.18, 0.5);
-      } else {
-        engineRef.current?.setMasterGain(0.0001, 0.5);
-      }
+    setBloomColor(m);
+    if (statusRef.current !== "playing") return;
+    const mm = PRISM_MODES[m];
+    const eng = engineRef.current;
+    if (mm.params) {
+      if (eng && eng.state) eng.setMode(mm.params);
+      else startAudio(m);
     } else {
-      setBloomColor(m);
+      // "No sound" — mute the running soundscape.
+      eng?.setMasterGain(0.0001, 0.5);
     }
   }
   function runMeltDemo() {
@@ -440,7 +436,7 @@ export function HomeClient() {
 
   // ── Derived render values (renderVals) ──────────────────────────────
   const red = reduce;
-  const m = MODES[mode];
+  const m = PRISM_MODES[mode];
   const heroProgress = red ? 0 : progress;
   const frostOn = status === "paused" || (red && status !== "idle");
   const dripOn = status === "playing" && !red;
@@ -458,7 +454,9 @@ export function HomeClient() {
             ? "Try a quiet 20 seconds"
             : `Try 20 seconds of ${m.label}`;
   const caption =
-    status === "playing"
+    audioLoading && status === "playing"
+      ? "Warming up the sound…"
+      : status === "playing"
       ? mode === "nosound"
         ? "Just you and the cube."
         : `${m.label}. The room goes quiet.`
@@ -655,9 +653,9 @@ export function HomeClient() {
             </div>
           </div>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 7, justifyContent: "center" }}>
-            {MODE_KEYS.map((k) => (
+            {PRISM_MODE_KEYS.map((k) => (
               <button key={k} onClick={() => selectMode(k)} style={modeBtnStyle(k, k === mode)}>
-                {MODES[k].label}
+                {PRISM_MODES[k].label}
               </button>
             ))}
           </div>

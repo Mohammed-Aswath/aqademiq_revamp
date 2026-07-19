@@ -174,6 +174,7 @@ export function SiteFooter() {
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             <div style={COL_HEAD}>Support &amp; legal</div>
+            <Link className={styles.link} href="/support" style={LINK_FS}>Support</Link>
             <Link className={styles.link} href="/faq" style={LINK_FS}>FAQ</Link>
             <a className={styles.link} href={`mailto:${CONTACT_EMAIL}`} style={LINK_FS}>Contact</a>
             <Link className={styles.link} href="/privacy-policy" style={LINK_FS}>Privacy</Link>

@@ -1,0 +1,4 @@
+# Local source assets — not needed at runtime (compressed outputs live in public/audio)
+assets/
+testimonial_images/
+scripts/

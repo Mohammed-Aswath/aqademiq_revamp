@@ -3,6 +3,7 @@ export type Testimonial = {
   name: string;
   major: string;
   university: string;
+  image: string;
 };
 
 export type TestimonialCard = Testimonial & { initials: string };
@@ -14,6 +15,7 @@ const T: Testimonial[] = [
     name: "Jonathan Samuel",
     major: "Mechatronics Engineering",
     university: "University of Wollongong",
+    image: "/testimonials/JonathanSamuel.webp",
   },
   {
     quote:
@@ -21,6 +23,7 @@ const T: Testimonial[] = [
     name: "Thisal Perera",
     major: "BCom Student",
     university: "Deakin University",
+    image: "/testimonials/ThisalPerera.webp",
   },
   {
     quote:
@@ -28,6 +31,7 @@ const T: Testimonial[] = [
     name: "Kaviyan Elan",
     major: "MEng Electrical and Electronics",
     university: "Loughborough University",
+    image: "/testimonials/KaviyanElan.webp",
   },
   {
     quote:
@@ -35,6 +39,7 @@ const T: Testimonial[] = [
     name: "Sana khan",
     major: "Bachelors in Dentistry",
     university: "Ajman University",
+    image: "/testimonials/SanaSultana.webp",
   },
   {
     quote:
@@ -42,6 +47,7 @@ const T: Testimonial[] = [
     name: "Abdullah Al Ameri",
     major: "Bachelor's of Economics",
     university: "United Arab Emirates University",
+    image: "/testimonials/AbdullahAlAmeri.webp",
   },
   {
     quote:
@@ -49,6 +55,7 @@ const T: Testimonial[] = [
     name: "Haseeb Zulfiqar",
     major: "AI Engineering",
     university: "Abu Dhabi University",
+    image: "/testimonials/HaseebZulfiqar.webp",
   },
   {
     quote:
@@ -56,6 +63,7 @@ const T: Testimonial[] = [
     name: "Ethan D'souza",
     major: "BBA (Finance)",
     university: "University of Wollongong",
+    image: "/testimonials/EthanDsouza.webp",
   },
   {
     quote:
@@ -63,6 +71,7 @@ const T: Testimonial[] = [
     name: "Adeel Zulfiqar",
     major: "MD. Cardiology",
     university: "Tbilisi State Medical University",
+    image: "/testimonials/AdeelZulfiqar.webp",
   },
   {
     quote:
@@ -70,6 +79,7 @@ const T: Testimonial[] = [
     name: "Devadutt B",
     major: "BEng Computer Science",
     university: "BITS Pilani",
+    image: "/testimonials/DevaduttB.webp",
   },
   {
     quote:
@@ -77,6 +87,7 @@ const T: Testimonial[] = [
     name: "Gaurish CP",
     major: "BEng Biotechnology",
     university: "BITS Pilani",
+    image: "/testimonials/GaurishCP.webp",
   },
 ];
 

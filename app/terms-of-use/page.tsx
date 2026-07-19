@@ -34,7 +34,6 @@ export default function TermsPage() {
         <div className="lg-main">
           <div className={styles.eyebrow}>
             <span className="e">Legal</span>
-            <span className={styles.chip}>Draft</span>
           </div>
           <div id="legalbody">
             <h1 className={styles.title} id="lg-top">
@@ -961,7 +960,7 @@ export default function TermsPage() {
               Back to home
             </Link>
             <span style={{ color: "#c0bdb6" }}>·</span>
-            <Link href="/privacy">Privacy Policy</Link>
+            <Link href="/privacy-policy">Privacy Policy</Link>
           </div>
         </div>
       </div>

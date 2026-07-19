@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { AdaCube, IceTimer, TaskCard } from "@/components/ds";
@@ -132,24 +133,20 @@ function TestiCard({ t }: { t: TestimonialCard }) {
         “{t.quote}”
       </p>
       <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: "auto" }}>
-        <div
+        <Image
+          src={t.image}
+          alt={t.name}
+          width={42}
+          height={42}
           style={{
             width: 42,
             height: 42,
             borderRadius: "50%",
-            background: "var(--aq-periwinkle-soft)",
-            color: "#5941d6",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontWeight: 800,
-            fontSize: 14,
+            objectFit: "cover",
             flexShrink: 0,
-            fontFamily: "var(--font-sans)",
+            background: "var(--aq-periwinkle-soft)",
           }}
-        >
-          {t.initials}
-        </div>
+        />
         <div style={{ minWidth: 0 }}>
           <div
             style={{

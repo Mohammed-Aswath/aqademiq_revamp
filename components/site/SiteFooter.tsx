@@ -176,8 +176,8 @@ export function SiteFooter() {
             <div style={COL_HEAD}>Support &amp; legal</div>
             <Link className={styles.link} href="/faq" style={LINK_FS}>FAQ</Link>
             <a className={styles.link} href={`mailto:${CONTACT_EMAIL}`} style={LINK_FS}>Contact</a>
-            <Link className={styles.link} href="/privacy" style={LINK_FS}>Privacy</Link>
-            <Link className={styles.link} href="/terms" style={LINK_FS}>Terms</Link>
+            <Link className={styles.link} href="/privacy-policy" style={LINK_FS}>Privacy</Link>
+            <Link className={styles.link} href="/terms-of-use" style={LINK_FS}>Terms</Link>
             <a className={styles.link} href="#" style={LINK_FS}>Your data · Accessibility</a>
           </div>
         </nav>

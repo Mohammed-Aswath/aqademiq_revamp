@@ -723,9 +723,9 @@ export default function FaqPage() {
               color: "#8e8a83",
             }}
           >
-            <Link href="/privacy">Privacy</Link>
+            <Link href="/privacy-policy">Privacy</Link>
             <span style={{ color: "#c0bdb6" }}>·</span>
-            <Link href="/terms">Terms</Link>
+            <Link href="/terms-of-use">Terms</Link>
             <span style={{ color: "#c0bdb6" }}>·</span>
             <a href="#">Your data</a>
             <span style={{ color: "#c0bdb6" }}>·</span>

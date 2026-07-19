@@ -41,7 +41,7 @@ No `vercel.json` is needed. Every route is statically prerendered.
 ```
 app/                      route per page + root layout, sitemap.ts, robots.ts, globals.css
   page.tsx                Home (renders the HomeClient island)
-  how-it-works/ science/ about/ faq/ students/ privacy/ terms/
+  how-it-works/ science/ about/ faq/ students/ privacy-policy/ terms-of-use/
 components/
   ds/                     design-system components ported to TSX (AdaCube, IceTimer, TaskCard, …)
   site/                   SiteHeader, SiteFooter, GetAppModal, GetAppButton, AppProvider, RevealController

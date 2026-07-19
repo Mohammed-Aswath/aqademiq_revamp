@@ -33,7 +33,6 @@ export default function PrivacyPage() {
         <div className="lg-main">
           <div className={styles.eyebrow}>
             <span className="e">Legal</span>
-            <span className={styles.chip}>Draft</span>
           </div>
           <div id="legalbody">
             <h1 className={styles.title} id="lg-top">
@@ -992,7 +991,7 @@ export default function PrivacyPage() {
               Back to home
             </Link>
             <span style={{ color: "#c0bdb6" }}>·</span>
-            <Link href="/terms">Terms of Use</Link>
+            <Link href="/terms-of-use">Terms of Use</Link>
           </div>
         </div>
       </div>

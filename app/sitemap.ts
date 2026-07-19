@@ -8,8 +8,8 @@ const ROUTES = [
   "/students",
   "/about",
   "/faq",
-  "/privacy",
-  "/terms",
+  "/privacy-policy",
+  "/terms-of-use",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

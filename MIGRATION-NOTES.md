@@ -19,7 +19,7 @@ How the original `.dc.html` / `support.js` site maps onto this Next.js app, the 
 
 ## Routes
 
-`/` · `/how-it-works` · `/science` · `/about` · `/faq` · `/students` · `/privacy` · `/terms` — plus generated `/sitemap.xml` and `/robots.txt`. Internal `X.dc.html#frag` links became `/x#frag`; in-page anchors and `:target` highlights (Science references, legal TOCs) are preserved.
+`/` · `/how-it-works` · `/science` · `/about` · `/faq` · `/students` · `/privacy-policy` · `/terms-of-use` — plus generated `/sitemap.xml` and `/robots.txt`. Internal `X.dc.html#frag` links became `/x#frag`; in-page anchors and `:target` highlights (Science references, legal TOCs) are preserved.
 
 ## Deliberate deviations (with rationale)
 
@@ -40,7 +40,7 @@ How the original `.dc.html` / `support.js` site maps onto this Next.js app, the 
 
 Per your instruction, `Privacy.dc.html` and `Terms.dc.html` were reproduced **word-for-word**, including the following pre-existing artifacts. None were "fixed" — listed here so you can decide whether to correct them in the source copy later.
 
-### Privacy (`/privacy`)
+### Privacy (`/privacy-policy`)
 1. Definition of "Consent" — **missing opening quotation mark**: `Consent" means …`.
 2. Definition of "Processing" — **doubled word**: `… combination, sharing, sharing, transmission …`.
 3. §5.4 — stray `I` / dropped word: `… including I Interaction Data Processed by AI Service Provider …`.
@@ -51,7 +51,7 @@ Per your instruction, `Privacy.dc.html` and `Terms.dc.html` were reproduced **wo
 8. Mixed straight vs curly quotes throughout (e.g. "IOS", "Android", "Applicable Laws").
 9. Effective Date ends with a period (`19/07/2026.`) while Last Updated does not.
 
-### Terms (`/terms`)
+### Terms (`/terms-of-use`)
 1. §1.1(a) — doubled word: `means a a neurodevelopment condition`.
 2. §1.1(d) — doubled comma: `the IT Act, , the IT (Reasonable Security …`.
 3. §1.1(d/e) — sentence split into a stray fragment with no terminal period; `made available,.` (comma + period).

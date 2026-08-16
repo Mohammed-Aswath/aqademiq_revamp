@@ -39,7 +39,7 @@ export default function PrivacyPage() {
               AQADEMIQ PRIVACY POLICY
             </h1>
             <div className={styles.meta}>Effective Date: 19/07/2026.</div>
-            <div className={styles.meta}>Last Updated: 19/07/2026</div>
+            <div className={styles.meta}>Last Updated: 16/08/2026</div>
             <h2 className={styles.sec} id="s1">
               1. INTRODUCTION
             </h2>
@@ -47,9 +47,9 @@ export default function PrivacyPage() {
               <span className={styles.n}>1.</span>
               <div className={styles.t}>
                 This Privacy Policy (&quot;Policy&quot;) is issued by R13 Labs
-                India Private Limited (&quot;Aqademiq&quot;, &quot;we&quot;,
-                &quot;our&quot;, or &quot;us&quot;), the developer and operator of
-                the Aqademiq application. This Policy explains how Aqademiq
+                India Private Limited (&quot;Aqademiq&quot;, &quot;We&quot;,
+                &quot;Our&quot;, or &quot;Us&quot;), the developer and operator
+                of the Aqademiq application. This Policy explains how Aqademiq
                 collects, Processes (as defined below), stores, uses and shares
                 Personal Data (as defined below) in connection with the Platform
                 (as defined below) and Services (as defined below). The Policy
@@ -62,36 +62,37 @@ export default function PrivacyPage() {
               <div className={styles.t}>
                 This Policy applies to the collection, use, Processing, storage,
                 and disclosure of digital Personal Data by Aqademiq when a Data
-                Principal (as defined below) accesses or uses the Aqademiq web
-                application, available at www.aqademiq.com, mobile application,
-                including the “IOS” and “Android” applications, and any related
-                interfaces through which the Services are made available,
-                collectively referred to as the (&quot;Platform&quot;).
+                Principal (as defined below) accesses or uses the Aqademiq
+                website, web application and mobile application (including the
+                iOS and Android applications), and any related interfaces
+                through which the Services are made available on the Digital
+                Platform (as defined below).
               </div>
             </div>
             <div className={`${styles.cl} ${styles.num}`}>
               <span className={styles.n}>3.</span>
               <div className={styles.t}>
                 This Policy applies to all individuals located in India who
-                access or interact with the Platform in the capacity of a User
-                (as defined below) including individuals accessing the Platform
-                in Guest Mode (as defined below) prior to registration. Aqademiq
-                currently offers its Services to individual Users only, and does
-                not, as of the date of this Policy, offer institutional,
-                enterprise, or corporate accounts. Aqademiq may introduce the
-                Platform in additional jurisdictions after assessing the legal
-                and regulatory requirements applicable in those jurisdictions.
+                access or interact with the Digital Platform in the capacity of
+                a User (as defined below) including individuals accessing the
+                Digital Platform in Guest Mode (as defined below) prior to
+                registration. Aqademiq currently offers its Services to
+                individual Users only, and does not, as of the date of this
+                Policy, offer institutional, enterprise, or corporate accounts.
+                Aqademiq may introduce the Platform in additional jurisdictions
+                after assessing the legal and regulatory requirements applicable
+                in those jurisdictions.
               </div>
             </div>
             <div className={`${styles.cl} ${styles.num}`}>
               <span className={styles.n}>4.</span>
               <div className={styles.t}>
-                By accessing or using the Platform, you acknowledge that you have
-                been provided with and have had an opportunity to review this
-                Policy. Where Aqademiq relies on Consent (as defined below) for
-                any Processing activity, such Consent will be requested through a
-                clear affirmative action and may be withdrawn in accordance with
-                this Policy.
+                By accessing or using the Digital Platform, You acknowledge that
+                You have been provided with and have had an opportunity to
+                review this Policy. Where Aqademiq relies on Consent (as defined
+                below) for any Processing activity, such Consent will be
+                requested through a clear affirmative action and may be
+                withdrawn in accordance with this Policy.
               </div>
             </div>
             <div className={`${styles.cl} ${styles.num}`}>
@@ -124,24 +125,24 @@ export default function PrivacyPage() {
               <span className={styles.n}>2.</span>
               <div className={styles.t}>
                 &quot;Ada&quot; means the AI-enabled conversational and
-                academic-support feature integrated into the Platform that
-                assists Users with schedule management, task planning,
+                academic-support feature integrated into the Digital Platform
+                that assists Users with schedule management, task planning,
                 study-related queries and such other functions as may be
-                described on the Platform.
+                described on the Digital Platform.
               </div>
             </div>
             <div className={`${styles.cl} ${styles.num}`}>
               <span className={styles.n}>3.</span>
               <div className={styles.t}>
                 &quot;Child/Children&quot; means an individual who has not
-                attained the age of eighteen (18) years, in accordance with
+                completed the age of eighteen (18) years, in accordance with
                 Applicable Laws.
               </div>
             </div>
             <div className={`${styles.cl} ${styles.num}`}>
               <span className={styles.n}>4.</span>
               <div className={styles.t}>
-                Consent&quot; means a freely given, specific, informed,
+                &quot;Consent&quot; means a freely given, specific, informed,
                 unconditional, and unambiguous indication of a Data
                 Principal&apos;s agreement to the Processing of their Personal
                 Data, communicated through a clear affirmative action, including
@@ -155,18 +156,17 @@ export default function PrivacyPage() {
               <div className={styles.t}>
                 &quot;Data Fiduciary&quot; means Aqademiq, which determines the
                 purpose and means of Processing Personal Data, collected through
-                the Platform, in accordance with this Policy and Applicable Laws.
+                the Digital Platform, in accordance with this Policy and
+                Applicable Laws.
               </div>
             </div>
             <div className={`${styles.cl} ${styles.num}`}>
               <span className={styles.n}>6.</span>
               <div className={styles.t}>
-                &quot;Data Principal&quot; means the individual to whom the
-                Personal Data relates, including any individual who downloads,
-                accesses, registers on, or otherwise interacts with the Platform,
-                and, where applicable, the parent or lawful guardian of a Child.
-                For simplicity and readability, the terms &quot;you&quot; and
-                &quot;your&quot; refer to the Data Principal.
+                &quot;Data Principal&quot; means the User to whom the Personal
+                Data relates, including any individual who downloads, accesses,
+                registers on, or otherwise interacts with the Platform, and,
+                where applicable, the parent or lawful guardian of a Child.
               </div>
             </div>
             <div className={`${styles.cl} ${styles.num}`}>
@@ -182,6 +182,17 @@ export default function PrivacyPage() {
             <div className={`${styles.cl} ${styles.num}`}>
               <span className={styles.n}>8.</span>
               <div className={styles.t}>
+                &quot;Digital Platform&quot; means the technology-enabled
+                platform operated by Aqademiq, comprising the Aqademiq website
+                at www.Aqademiq.com and web application accessible at
+                www.aqademiq.app together with the mobile application (including
+                the iOS and android applications) and any related interfaces
+                through which the Services are made available to the Users.
+              </div>
+            </div>
+            <div className={`${styles.cl} ${styles.num}`}>
+              <span className={styles.n}>9.</span>
+              <div className={styles.t}>
                 &quot;Grievance Officer&quot; means the individual designated by
                 Aqademiq in accordance with Applicable Laws to receive,
                 acknowledge, and address grievances raised by Data Principals
@@ -189,52 +200,53 @@ export default function PrivacyPage() {
               </div>
             </div>
             <div className={`${styles.cl} ${styles.num}`}>
-              <span className={styles.n}>9.</span>
-              <div className={styles.t}>
-                &quot;Guest Mode&quot; means the limited, unregistered mode in
-                which a User may explore certain features of the Platform prior
-                to creating an account or providing Personal Data.
-              </div>
-            </div>
-            <div className={`${styles.cl} ${styles.num}`}>
               <span className={styles.n}>10.</span>
               <div className={styles.t}>
-                &quot;Personal Data&quot; means any data about an individual who
-                is identifiable by or in relation to such data, and includes, in
-                relation to the Platform, information such as name, email
-                address, age, and university or institutional affiliation, as
-                well as any other data described in Section 3.
+                &quot;Guest Mode&quot; means the limited, unregistered mode in
+                which a User may explore certain features of the Digital
+                Platform prior to creating an account or providing Personal
+                Data.
               </div>
             </div>
             <div className={`${styles.cl} ${styles.num}`}>
               <span className={styles.n}>11.</span>
               <div className={styles.t}>
-                &quot;Processing&quot; or &quot;Process&quot; means any operation
-                or set of operations performed on Personal Data, whether wholly
-                or partly by automated means, including the collection,
-                recording, organisation, storage, adaptation, retrieval, use,
-                alignment, combination, sharing, sharing, transmission,
-                disclosure, restriction, erasure, or destruction of Personal
-                Data.
+                &quot;Personal Data&quot; means any data about an User who is
+                identifiable by or in relation to such data, and includes, in
+                relation to the Digital Platform, information such as name,
+                email address, age, and any other data described in Section 3.
               </div>
             </div>
             <div className={`${styles.cl} ${styles.num}`}>
               <span className={styles.n}>12.</span>
               <div className={styles.t}>
-                &quot;Services&quot; means the academic planning, schedule
-                management, task tracking, and grade- tracking functionality
-                offered through the Platform, together with the AI-enabled
-                features provided through Ada, which operate as supplementary
-                tools to assist Users and do not independently determine any
-                User&apos;s academic outcomes, rights, or eligibility.
+                &quot;Processing&quot; or &quot;Process&quot; means any operation
+                or set of operations performed on Personal Data, whether wholly
+                or partly by automated means, including the collection,
+                recording, organisation, storage, adaptation, retrieval, use,
+                alignment, combination, sharing, transmission, disclosure,
+                restriction, erasure, or destruction of Personal Data.
               </div>
             </div>
             <div className={`${styles.cl} ${styles.num}`}>
               <span className={styles.n}>13.</span>
               <div className={styles.t}>
-                &quot;User&quot; means any individual who registers for, or
-                otherwise accesses or interacts with the Platform or Services,
-                including Users who access the Platform in Guest Mode.
+                &quot;Services&quot; means the academic planning, schedule
+                management, task tracking, and grade-tracking functionality
+                offered through the Digital Platform, together with the
+                AI-enabled features provided through Ada, which operate as
+                supplementary tools to assist Users and do not independently
+                determine any User&apos;s academic outcomes, rights, or
+                eligibility.
+              </div>
+            </div>
+            <div className={`${styles.cl} ${styles.num}`}>
+              <span className={styles.n}>14.</span>
+              <div className={styles.t}>
+                &quot;User/ You/Your&quot; means any individual who registers for
+                or otherwise accesses or interacts with the Digital Platform or
+                Services, including Users who access the Digital Platform in
+                Guest Mode.
               </div>
             </div>
             <h2 className={styles.sec} id="s3">
@@ -257,8 +269,8 @@ export default function PrivacyPage() {
               </div>
             </div>
             <p className={styles.p}>
-              When a User creates an account on the Platform, Aqademiq collects
-              the following categories of Personal Data:
+              When a User creates an account on the Digital Platform, Aqademiq
+              collects the following categories of Personal Data:
             </p>
             <div className={`${styles.cl} ${styles.letter}`}>
               <span className={styles.n}>(a)</span>
@@ -294,8 +306,8 @@ export default function PrivacyPage() {
               Where a User accesses the Platform through Guest Mode, Aqademiq
               does not collect or store the categories of Personal Data described
               in Section 3.2 above. Guest Mode enables a User to explore certain
-              features of the Platform prior to registration and prior to
-              providing Consent, in order to support informed and voluntary
+              features of the Digital Platform prior to registration and prior
+              to providing Consent, in order to support informed and voluntary
               decision-making before Personal Data is collected.
             </p>
             <div className={`${styles.cl} ${styles.dec}`}>
@@ -308,34 +320,36 @@ export default function PrivacyPage() {
               In the course of using the Services, Users may input or upload
               information relating to their academic activities, including course
               names, assignment details, deadlines, schedules, and grades, for
-              the purpose of using the Platform&apos;s organisation and tracking
-              features. Aqademiq Processes this information to provide the
-              Services selected by the User, personalise scheduling and planning
-              features, maintain Platform functionality and security, and
-              undertake such other purposes as are specifically disclosed in this
-              Policy.
+              the purpose of using the Digital Platform&apos;s organisation and
+              tracking features. Aqademiq Processes this information to provide
+              the Services selected by the User, personalise scheduling and
+              planning features, maintain Platform functionality and security,
+              and undertake such other purposes as are specifically disclosed in
+              this Policy.
             </p>
             <div className={`${styles.cl} ${styles.dec}`}>
               <span className={styles.n}>3.5.</span>
-              <div className={styles.t}>
-                Data collected through Ada and AI-enabled features Where a User
-                interacts with Ada, Aqademiq Processes the prompts, queries, and
-                inputs submitted by the User to Ada, together with the
-                corresponding AI-generated responses (&quot;AI Interaction
-                Data&quot;). AI Interaction Data may include references to a
-                User&apos;s schedule, tasks, or academic information to the extent
-                voluntarily shared by the User in the course of the conversation.
-                Aqademiq may also Process usage and behavioural information
-                generated through a User&apos;s interaction with the
-                Platform&apos;s adaptive scheduling and planning features such as
-                task completion patterns and study session activity, to the
-                extent this is used to operate and personalise such features for
-                that User (&quot;Usage Data&quot;). Further details of how AI
-                Interaction Data is Processed, including its disclosure to
-                Aqademiq&apos;s AI infrastructure provider, are set out in
-                Sections 5.2 and 7.3 of this Policy.
+              <div className={`${styles.t} ${styles.lab}`}>
+                Data collected through Ada and AI-enabled features
               </div>
             </div>
+            <p className={styles.p}>
+              Where a User interacts with Ada, Aqademiq Processes the prompts,
+              queries, and inputs submitted by the User to Ada, together with the
+              corresponding AI-generated responses (&quot;AI Interaction
+              Data&quot;). AI Interaction Data may include references to a
+              User&apos;s schedule, tasks, or academic information to the extent
+              voluntarily shared by the User in the course of the conversation.
+              Aqademiq may also Process usage and behavioural information
+              generated through a User&apos;s interaction with the
+              Platform&apos;s adaptive scheduling and planning features such as
+              task completion patterns and study session activity, to the extent
+              this is used to operate and personalise such features for that User
+              (&quot;Usage Data&quot;). Further details of how AI Interaction
+              Data is Processed, including its disclosure to Aqademiq&apos;s AI
+              infrastructure provider, are set out in Sections 5.2 and 7.3 of
+              this Policy.
+            </p>
             <div className={`${styles.cl} ${styles.dec}`}>
               <span className={styles.n}>3.6.</span>
               <div className={`${styles.t} ${styles.lab}`}>
@@ -359,13 +373,13 @@ export default function PrivacyPage() {
             </div>
             <p className={styles.p}>
               Aqademiq may automatically Process limited technical and security
-              information when a User accesses or uses the Platform, including IP
-              address, device type, operating system, application version, login
-              timestamps, authentication records, session identifiers, crash or
-              diagnostic information, security events and usage logs. Such
-              information is Processed to operate, secure and troubleshoot the
-              Platform, detect and prevent unauthorised access, fraud and misuse,
-              and maintain service performance.
+              information when a User accesses or uses the Digital Platform,
+              including IP address, device type, operating system, application
+              version, login timestamps, authentication records, session
+              identifiers, crash or diagnostic information, security events and
+              usage logs. Such information is Processed to operate, secure and
+              troubleshoot the Platform, detect and prevent unauthorised access,
+              fraud and misuse, and maintain service performance.
             </p>
             <h2 className={styles.sec} id="s4">
               4. PURPOSES OF PROCESSING PERSONAL DATA
@@ -401,7 +415,7 @@ export default function PrivacyPage() {
             </p>
             <div className={`${styles.cl} ${styles.num}`}>
               <span className={styles.n}>3.</span>
-              <div className={styles.t}>
+              <div className={`${styles.t} ${styles.lab}`}>
                 Processing of AI Interaction Data and Usage Data
               </div>
             </div>
@@ -426,14 +440,16 @@ export default function PrivacyPage() {
             </div>
             <div className={`${styles.cl} ${styles.num}`}>
               <span className={styles.n}>4.</span>
-              <div className={styles.t}>
-                Processing of Account and Usage Data for Platform Security To
-                maintain the security of the Platform, including through access
-                controls and authentication mechanisms, to detect and prevent
-                unauthorised access, and to maintain the technical functionality
-                of the Platform.
+              <div className={`${styles.t} ${styles.lab}`}>
+                Processing of Account and Usage Data for Platform Security
               </div>
             </div>
+            <p className={styles.p}>
+              To maintain the security of the Platform, including through access
+              controls and authentication mechanisms, to detect and prevent
+              unauthorised access, and to maintain the technical functionality of
+              the Digital Platform.
+            </p>
             <div className={`${styles.cl} ${styles.num}`}>
               <span className={styles.n}>5.</span>
               <div className={`${styles.t} ${styles.lab}`}>
@@ -592,13 +608,14 @@ export default function PrivacyPage() {
               <div className={`${styles.t} ${styles.lab}`}>Account deletion</div>
             </div>
             <p className={styles.p}>
-              (a)A User may currently request deletion of their account and
-              associated Personal Data by contacting Aqademiq through the
-              Grievance Officer identified in Section 11.3. Such requests are
-              presently Processed manually. (b)Aqademiq intends to implement an
-              automated data deletion mechanism, including deletion following
-              prolonged account inactivity or subscription cancellation,
-              following the initial launch of the Platform.
+              (a)A User may currently delete their account themselves or request
+              deletion of their account and associated Personal Data by
+              contacting Aqademiq through the Grievance Officer identified in
+              Section 11.3. Such requests are presently Processed manually.
+              (b)Aqademiq intends to implement an automated data deletion
+              mechanism, including deletion following prolonged account
+              inactivity or subscription cancellation, following the initial
+              launch of the Digital Platform.
             </p>
             <div className={`${styles.cl} ${styles.dec}`}>
               <span className={styles.n}>6.3.</span>
@@ -626,7 +643,7 @@ export default function PrivacyPage() {
                 safeguards designed to protect Personal Data against unauthorised
                 access, disclosure, alteration, loss, or destruction,
                 proportionate to the nature and scope of the Personal Data
-                Processed through the Platform.
+                Processed through the Digital Platform.
               </div>
             </div>
             <div className={`${styles.cl} ${styles.dec}`}>
@@ -696,7 +713,7 @@ export default function PrivacyPage() {
                 Withdrawal of Consent does not affect the lawfulness of Processing
                 carried out before the withdrawal. Upon withdrawal, Aqademiq shall
                 cease Processing the relevant Personal Data, except to the extent
-                continued Processing is required under Applicable Laws, and shall
+                continued Processing is required under Applicable Laws and shall
                 proceed with deletion in accordance with Section 6. Withdrawal of
                 Consent may result in the relevant feature becoming unavailable.
                 For example, withdrawal of Consent for AI Interaction Data may
@@ -708,20 +725,41 @@ export default function PrivacyPage() {
             <div className={`${styles.cl} ${styles.num}`}>
               <span className={styles.n}>4.</span>
               <div className={styles.t}>
-                Each User, including a User accessing the Platform through Guest
-                Mode, represents and warrants that any Consent, declaration,
+                Each User, including a User accessing the Digital Platform through
+                Guest Mode, represents and warrants that any Consent, declaration,
                 confirmation, or information provided to Aqademiq in connection
-                with the use of the Platform is true, accurate, complete, and
-                given by the individual lawfully entitled to provide such Consent
-                under Applicable Laws. Aqademiq shall be entitled to rely on such
-                representations and shall not be responsible or liable for any
-                false, inaccurate, misleading, fraudulent, or unauthorised
+                with the use of the Digital Platform is true, accurate, complete,
+                and given by the individual lawfully entitled to provide such
+                Consent under Applicable Laws. Aqademiq shall be entitled to rely
+                on such representations and shall not be responsible or liable for
+                any false, inaccurate, misleading, fraudulent, or unauthorised
                 Consent, declaration, or information submitted by any User or
                 Guest Mode User. Where Aqademiq becomes aware that any such
                 Consent or information is invalid or has been falsely provided,
                 Aqademiq reserves the right to suspend or terminate access to the
-                Platform and take such other measures as may be required under
-                Applicable Laws.
+                Digital Platform and take such other measures as may be required
+                under Applicable Laws.
+              </div>
+            </div>
+            <div className={`${styles.cl} ${styles.num}`}>
+              <span className={styles.n}>5.</span>
+              <div className={styles.t}>
+                The Digital Platform employs a layered consent mechanism at the
+                point of registration. Primary Consent, comprising acceptance of
+                these Terms and the Privacy Policy together with confirmation that
+                the User is above the age of eighteen years, is mandatory and must
+                be affirmatively indicated before the User may proceed with
+                registration. Ada Consent, being consent for enabling AI
+                Interaction with Ada, is sought separately from Primary Consent,
+                is optional, is unchecked by default and shall not condition or
+                restrict the User&apos;s ability to proceed with registration
+                irrespective of whether Ada Consent is provided. The onboarding
+                notice for Ada Consent shall disclose that Ada functions by
+                transmitting the User&apos;s prompts to a third-party artificial
+                intelligence service located outside India, that the Digital
+                Platform remains fully usable without enabling Ada, and that Ada
+                Consent may be withdrawn at any time through the Settings of the
+                Digital Platform.
               </div>
             </div>
             <h2 className={styles.sec} id="s9">
@@ -795,17 +833,17 @@ export default function PrivacyPage() {
             <div className={`${styles.cl} ${styles.num}`}>
               <span className={styles.n}>1.</span>
               <div className={styles.t}>
-                The Platform is intended for use by university students, who have
-                completed eighteen (18) years of age or older. Aqademiq does not
-                currently offer the Platform to individuals below eighteen (18)
-                years of age.
+                The Platform is intended for use by students, who have attained
+                eighteen (18) years of age or older. Aqademiq does not currently
+                offer the Platform to individuals below eighteen (18) years of
+                age.
               </div>
             </div>
             <div className={`${styles.cl} ${styles.num}`}>
               <span className={styles.n}>2.</span>
               <div className={styles.t}>
                 During onboarding, a User is required to confirm their age. Where
-                a User indicates that they are under eighteen (18) years of age,
+                a User indicates that they are below eighteen (18) years of age,
                 the User will not be permitted to create an account or use the
                 Platform, and any information provided during onboarding will not
                 be retained beyond what is necessary to give effect to this
@@ -885,18 +923,12 @@ export default function PrivacyPage() {
             <div className={`${styles.cl} ${styles.letter}`}>
               <span className={styles.n}>(b)</span>
               <div className={`${styles.t} ${styles.lab}`}>
-                Designation: Grievance Officer
-              </div>
-            </div>
-            <div className={`${styles.cl} ${styles.letter}`}>
-              <span className={styles.n}>(c)</span>
-              <div className={`${styles.t} ${styles.lab}`}>
                 Email:{" "}
                 <a href="mailto:support@aqademiq.com">support@aqademiq.com</a>
               </div>
             </div>
             <div className={`${styles.cl} ${styles.letter}`}>
-              <span className={styles.n}>(d)</span>
+              <span className={styles.n}>(c)</span>
               <div className={`${styles.t} ${styles.lab}`}>
                 Contact Number: +918248547453
               </div>
@@ -924,9 +956,10 @@ export default function PrivacyPage() {
             <div className={`${styles.cl} ${styles.num}`}>
               <span className={styles.n}>1.</span>
               <div className={styles.t}>
-                The Platform uses authentication tokens and session-management
-                mechanisms that are strictly necessary for a User to log in and
-                maintain an active session on the Platform.
+                The Digital Platform uses authentication tokens and
+                session-management mechanisms that are strictly necessary for a
+                User to log in and maintain an active session on the Digital
+                Platform.
               </div>
             </div>
             <div className={`${styles.cl} ${styles.num}`}>
@@ -945,20 +978,20 @@ export default function PrivacyPage() {
               <span className={styles.n}>1.</span>
               <div className={styles.t}>
                 Aqademiq reserves the right to modify or update this Policy from
-                time to time to reflect changes in Applicable Laws, the `Services
-                offered through the Platform, or Aqademiq&apos;s data processing
-                practices.
+                time to time to reflect changes in Applicable Laws, the Services
+                offered through the Digital Platform, or Aqademiq&apos;s data
+                processing practices.
               </div>
             </div>
             <div className={`${styles.cl} ${styles.num}`}>
               <span className={styles.n}>2.</span>
               <div className={styles.t}>
                 Aqademiq shall notify all Users of any material changes to this
-                Policy by publishing a prominent notice on the Platform and/or the
-                Aqademiq website. Such notice shall specify the effective date of
-                the revised Policy. Where required under Applicable Laws, Aqademiq
-                shall obtain fresh Consent before Processing Personal Data in
-                accordance with the updated Policy.
+                Policy by publishing a prominent notice on the Digital Platform.
+                Such notice shall specify the effective date of the revised
+                Policy. Where required under Applicable Laws, Aqademiq shall
+                obtain fresh Consent before Processing Personal Data in accordance
+                with the updated Policy.
               </div>
             </div>
             <div className={`${styles.cl} ${styles.num}`}>

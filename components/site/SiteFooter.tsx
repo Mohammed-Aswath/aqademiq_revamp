@@ -3,7 +3,7 @@
 import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { APP_URL, CONTACT_EMAIL } from "@/lib/config";
+import { APP_LOGIN_URL, APP_URL, CONTACT_EMAIL } from "@/lib/config";
 import logo from "@/public/logo.png";
 import { useApp } from "./AppProvider";
 import styles from "./SiteFooter.module.css";
@@ -170,7 +170,7 @@ export function SiteFooter() {
             >
               Get the app
             </button>
-            <a className={styles.link} href={APP_URL} style={LINK_FS}>Log in</a>
+            <a className={styles.link} href={APP_LOGIN_URL} style={LINK_FS}>Log in</a>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             <div style={COL_HEAD}>Support &amp; legal</div>

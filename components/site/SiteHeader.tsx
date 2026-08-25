@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { APP_URL } from "@/lib/config";
+import { APP_LOGIN_URL, APP_URL } from "@/lib/config";
 import logo from "@/public/logo.png";
 import styles from "./SiteHeader.module.css";
 
@@ -132,7 +132,7 @@ export function SiteHeader() {
             flexShrink: 0,
           }}
         >
-          <a className={styles.login} href={APP_URL}>
+          <a className={styles.login} href={APP_LOGIN_URL}>
             Log in
           </a>
           <a
@@ -209,7 +209,7 @@ export function SiteHeader() {
               </Link>
             ))}
             <a
-              href={APP_URL}
+              href={APP_LOGIN_URL}
               style={{
                 padding: "14px 0",
                 color: "#57534d",

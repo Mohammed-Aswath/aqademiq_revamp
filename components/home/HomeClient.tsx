@@ -1025,7 +1025,9 @@ export function HomeClient() {
               Focus soundscapes tuned for studying, not a playlist to get lost in. Press play in the
               cube above to hear one.
             </p>
-            <a className={styles.plink} href="#" style={{ fontSize: 15.5 }}>
+            {/* Was href="#", so it went nowhere. This is a learn-more link,
+                not a CTA — it belongs on the Prism section of /science. */}
+            <a className={styles.plink} href="/science#prism" style={{ fontSize: 15.5 }}>
               Explore Prism{" "}
               <span className="material-icons-outlined" style={{ fontSize: 18 }}>
                 arrow_forward

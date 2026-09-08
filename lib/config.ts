@@ -19,9 +19,13 @@ export const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://aqademiq.app"
  */
 export const APP_LOGIN_URL = `${APP_URL.replace(/\/+$/, "")}/signin`;
 
-/** App-store listings (placeholders until the listings exist). */
-export const APP_STORE_URL = process.env.NEXT_PUBLIC_APP_STORE_URL ?? "#";
-export const PLAY_STORE_URL = process.env.NEXT_PUBLIC_PLAY_STORE_URL ?? "#";
+/** App-store listings. Env vars still win so a preview can aim elsewhere. */
+export const APP_STORE_URL =
+  process.env.NEXT_PUBLIC_APP_STORE_URL ??
+  "https://apps.apple.com/in/app/aqademiq-study-calmly/id6792360288";
+export const PLAY_STORE_URL =
+  process.env.NEXT_PUBLIC_PLAY_STORE_URL ??
+  "https://play.google.com/store/apps/details?id=com.r13.aqademiq";
 
 /** Support / grievance contact. */
 export const CONTACT_EMAIL = "support@aqademiq.com";

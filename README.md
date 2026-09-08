@@ -22,8 +22,8 @@ Copy `.env.example` → `.env.local` and fill in when the real URLs exist. All a
 | --- | --- | --- |
 | `NEXT_PUBLIC_APP_URL` | The live web app — powers **both** "Start free" and "Log in" CTAs | `#` |
 | `NEXT_PUBLIC_SITE_URL` | Canonical origin for `metadataBase`, sitemap, robots | `https://www.aqademiq.com` |
-| `NEXT_PUBLIC_APP_STORE_URL` | iOS listing (Get-the-app modal) | `#` |
-| `NEXT_PUBLIC_PLAY_STORE_URL` | Android listing (Get-the-app modal) | `#` |
+| `NEXT_PUBLIC_APP_STORE_URL` | iOS listing (Get-the-app modal) | `https://apps.apple.com/in/app/aqademiq-study-calmly/id6792360288` |
+| `NEXT_PUBLIC_PLAY_STORE_URL` | Android listing (Get-the-app modal) | `https://play.google.com/store/apps/details?id=com.r13.aqademiq` |
 
 Every former `#start` placeholder now reads `APP_URL` from `lib/config.ts` — flip it in one place.
 

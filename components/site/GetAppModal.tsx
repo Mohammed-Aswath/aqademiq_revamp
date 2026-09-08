@@ -87,6 +87,8 @@ export function GetAppModal() {
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             <a
               href={APP_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -108,6 +110,8 @@ export function GetAppModal() {
             </a>
             <a
               href={PLAY_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
                 display: "inline-flex",
                 alignItems: "center",

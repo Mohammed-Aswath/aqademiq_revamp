@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.r13.aqademiq",
+      "sha256_cert_fingerprints": [
+        "F6:9E:C6:39:79:81:ED:B4:22:E7:CB:C7:BD:7C:38:A7:69:70:D7:3F:67:0C:84:12:59:BC:F0:38:FD:80:8F:96",
+        "9D:62:16:21:AF:1A:93:E9:78:3E:A7:7B:5E:FA:20:EE:40:19:20:4A:4B:FA:37:CF:62:89:12:D0:0F:DC:23:80"
+      ]
+    }
+  }
+]

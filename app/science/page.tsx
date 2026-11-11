@@ -471,7 +471,9 @@ export default function SciencePage() {
                 style={{
                   fontFamily: "var(--font-display)",
                   fontStyle: "italic",
-                  fontWeight: 500,
+                  // 400, not the design's 500: its font import has no 500 italic,
+                  // so the approved render is 400 (see about.module.css .pq).
+                  fontWeight: 400,
                   fontSize: "clamp(1.3rem,2.3vw,1.75rem)",
                   lineHeight: 1.34,
                   color: "#31237c",
@@ -502,7 +504,10 @@ export default function SciencePage() {
       >
         <div style={{ maxWidth: 900, margin: "0 auto" }} data-reveal="">
           <div style={{ display: "inline-flex", marginBottom: 22 }}>
-            <IceTimer progress={0.4} expr="focused" size={64} />
+            {/* The canvas passed size as a string, so its box lost width/height and
+                hugged Ada (38px) while the 64px ring overflowed it. Auto sizing
+                reproduces that approved spacing. */}
+            <IceTimer progress={0.4} expr="focused" size={64} style={{ width: "auto", height: "auto" }} />
           </div>
           <div className={styles.eyebrow} style={{ marginBottom: 16 }}>
             Part 02 · The interface

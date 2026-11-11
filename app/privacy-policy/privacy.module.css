@@ -159,3 +159,9 @@
   font-weight: 700;
   font-size: 15px;
 }
+:global(html[data-dyslexia="true"]) .p,
+:global(html[data-dyslexia="true"]) .t {
+  font-family: Verdana, "Trebuchet MS", system-ui, sans-serif !important;
+  letter-spacing: 0.015em !important;
+  line-height: 1.85 !important;
+}

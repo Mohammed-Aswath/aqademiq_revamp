@@ -13,7 +13,7 @@ How the original `.dc.html` / `support.js` site maps onto this Next.js app, the 
 | `<x-import …AqademiqDesignSystem_fcabcc.X>` | `import { X } from "@/components/ds"` |
 | `<helmet>` (tokens, fonts, page `<style>`) | `globals.css` + CSS Modules + `next/font` + `metadata` |
 | `IntersectionObserver` scroll-reveal | `lib/useReveal.ts` + `<RevealController>` island |
-| Web Audio hero engine | `lib/audio-engine.ts` (framework-free) driven by `components/home/HomeClient.tsx` |
+| Web Audio hero engine | `lib/prism-engine.ts` (framework-free) driven by `components/home/v2/HeroSection.tsx` |
 | `window.dispatchEvent('aq:ios')` (Get-the-app) | `AppProvider` context `openGetApp()` (a back-compat `aq:ios` listener remains) |
 | comfort toggles in `localStorage` | `AppProvider` + pre-paint inline script in `layout.tsx` |
 
@@ -24,10 +24,20 @@ How the original `.dc.html` / `support.js` site maps onto this Next.js app, the 
 ## Deliberate deviations (with rationale)
 
 1. **Next.js 16 (latest), not 15.** `create-next-app` installs the current stable (16.2.x). App Router APIs used here are identical; Turbopack is the default builder. No code impact.
-2. **Home is one `'use client'` island** rather than a server shell + hero island. The hero (audio), both scroll-triggered demos, the marquee, and the FAQ "Get the app" button are all interactive and share the reduced-motion/DOM context, so a single client component is simpler and lower-risk than many islands. It still server-renders to full HTML (verified), so SEO is unaffected. All other pages are server components with tiny client islands.
-3. **Two ESLint rules relaxed for two files.** React's experimental Compiler rules (`react-hooks/set-state-in-effect`, `immutability`, `purity`) flag the legitimate imperative escape hatches in `HomeClient.tsx` (Web Audio + IntersectionObserver controller) and `AppProvider.tsx` (pre-paint DOM sync). They are turned off *only* for those two files in `eslint.config.mjs`, with a comment. Everything else lints clean.
+2. **Home is one component per design section** (`components/home/v2/`, composed in `app/page.tsx`). No section shares state with another, so the interactive ones (hero, App freeze, Lock Screen & Watch, melt and Ada demos, Import, Haptics, The Core) are separate client islands and the static ones stay server components. Shared section classes are the design's page `<style>`, verbatim, in `components/home/v2/home.module.css`.
+3. **Three ESLint rules relaxed for two files.** React's experimental Compiler rules (`react-hooks/set-state-in-effect`, `immutability`, `purity`) flag the legitimate imperative escape hatches in `components/home/v2/HeroSection.tsx` (Web Audio session controller; `performance.now()` inside handlers reads as "impure during render") and `AppProvider.tsx` (pre-paint DOM sync). They are turned off *only* for those files in `eslint.config.mjs`, with a comment. Everything else lints clean.
 4. **`npm run lint` runs `eslint`** (Next 16 removed `next lint`).
 5. **Logo optimized at build.** The source 3.24 MB PNG is downscaled to `public/logo.png` (128², ~26 KB, transparent `contain`) and `app/icon.png`, so the tiny 32/36 px render never ships 3 MB.
+
+## V2: matching the approved render, not just the markup
+
+The canvas renders a few things differently from what its markup says. Where they differ, the site follows what was approved on the canvas, and the code says why at each spot:
+
+- **Styles on `<x-import>` are dropped by the canvas runtime** (the import becomes a `display:contents` host). So the drop-shadows, margins and `data-breathe` written on design-system imports never showed, and are left out here.
+- **Numeric attributes arrive as strings.** `<IceTimer size="128">` puts `width:"128"` (invalid) on its box, which then hugs Ada while the ring overflows it. Reproduced with `style={{ width: "auto", height: "auto" }}` on the three literal-size timers (Home melt demo, How it works focus, Science).
+- **Italic weights.** The design's Google Fonts import ships Plus Jakarta italics at 400/600 and Playfair italics at 400/700 only, so a `font-weight:500` italic quote renders at 400. Our variable font has a real 500, which is wider and rewraps; those quotes are set to 400.
+- **Specificity accidents kept.** e.g. About's `.st p` beats `.pq`, so pull-quotes inside `.st` are Plus Jakarta italic and the others Playfair. Ported with the same selectors.
+- **One deliberate departure:** in Readable-font mode the canvas (and the old site) turned Material Icons spans into Verdana, spelling them out as text ("expand_more"). `globals.css` now excludes icon spans from that rule.
 
 ## Verification done
 
@@ -50,24 +60,17 @@ Per your instruction, `Privacy.dc.html` and `Terms.dc.html` were reproduced **wo
 7. §6.3 — space before period: `… cross-border transfer . Upon expiry …`.
 8. Mixed straight vs curly quotes throughout (e.g. "IOS", "Android", "Applicable Laws").
 9. Effective Date ends with a period (`19/07/2026.`) while Last Updated does not.
+10. §1(1) has no closing full stop; §1(2) reads `collectively referred to as the ("Platform")`; §2(1) `“Applicable Laws” mean`.
+11. §1(5) says "Terms of Service"; the site's page is "Terms of Use".
+12. Two headings run straight into their body with no bold label (3.5 "…AI-enabled features Where a User…", 4(4) "…for Platform Security To maintain…"); 4(3)'s heading is not bold like its siblings; 3.2(d) is a bold label with no semicolon.
+13. V2 moved "Last Updated" from 16/08/2026 back to 19/07/2026, now the same as the Effective Date.
 
 ### Terms (`/terms-of-use`)
-1. §1.1(a) — doubled word: `means a a neurodevelopment condition`.
-2. §1.1(d) — doubled comma: `the IT Act, , the IT (Reasonable Security …`.
-3. §1.1(d/e) — sentence split into a stray fragment with no terminal period; `made available,.` (comma + period).
-4. §3.1 — garbled/duplicated: `at least (18) eighteen years at least eighteen (18) years of age … under Applicable Laws, The Digital Platform under Applicable Laws.`
-5. §3.2 / §3.3 — section number duplicated **inside** the sentence text.
-6. §3.3 — duplicated/garbled liability sentence: `and the shall not be responsible eligibility and shall not be responsible or liable …`.
-7. §6.5 — misspelling `Aquademiq` (vs "Aqademiq"); grammar `are shall take reasonable steps`.
-8. §6.3 — cross-reference to "Section 14" for AI disclaimers (14 is Term & Termination) — likely wrong reference.
-9. §11.2(c) — `everytime` (one word).
-10. §12.2 — space before period: `Applicable Laws .`.
-11. §15.3 — `Subject to Section 20.4` — there is no Section 20 (only 17).
-12. Grievance address `coimbatore 641045` (lowercase); liability cap ₹5,000 preserved with the ₹ symbol.
-13. §7.3 — oddly nested quoting: `("as defined in the Privacy Policy")`.
-
-## Things that still need your input
-
-- **Real URLs**: set `NEXT_PUBLIC_APP_URL` (Start-free / Log-in), and the App-/Play-Store URLs, when available. Until then the CTAs point at `#` (unchanged behavior).
-- **Placeholder links** kept inert (bare `#`): footer "Exam season", "ADHD & focus", "Blog", "Your data · Accessibility", and the Home "Explore Prism" link — wire these up when destinations exist.
-- **Whether to correct the legal artifacts above** in the source text (kept verbatim for now).
+V2's copy fixed the V1 artifacts ("a a", ", ,", "Aquademiq", "Section 20.4", lowercase "coimbatore"). Still present in V2:
+1. §3.1 — garbled/duplicated: `at least (18) eighteen years at least eighteen (18) years of age … under Applicable Laws, The Digital Platform under Applicable Laws.`
+2. §3.5 says "(including a Child or dependent)", but "Child" is no longer a defined term; §3.3 and the indemnity clause still mention parental or guardian consent although that section was removed.
+3. Third Party Service Providers clause: `are shall take reasonable steps`.
+4. No-malware warranty clause: `everytime` as one word.
+5. Mixed straight and curly quotes, sometimes within one term (`“Applicable Laws"`), and a nested quote `(“as defined in the Privacy Policy”)`.
+6. §1.1(e) gives a bracketed page title instead of a URL: `[Aqademiq — AI Study Planner for Students Who Procrastinate | ADHD-Friendly]`.
+7. The opening paragraph's last sentence starts lowercase: `if You do not agree to these terms…`.

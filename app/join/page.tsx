@@ -17,7 +17,7 @@ function Join() {
 
   return (
     <main style={{ maxWidth: 420, margin: '0 auto', padding: '64px 20px', textAlign: 'center', fontFamily: 'inherit' }}>
-      <h1 style={{ fontSize: 28, fontWeight: 800, marginBottom: 8 }}>You're invited to Aqademiq</h1>
+      <h1 style={{ fontSize: 28, fontWeight: 800, marginBottom: 8 }}>You&apos;re invited to Aqademiq</h1>
       <p style={{ color: '#646464', marginBottom: 28 }}>Get the app, then enter this code when you set it up.</p>
       {code && (
         <div style={{ marginBottom: 28 }}>

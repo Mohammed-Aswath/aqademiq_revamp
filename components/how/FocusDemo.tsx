@@ -2,33 +2,34 @@
 
 import { useEffect, useRef, useState } from "react";
 import { IceTimer } from "@/components/ds";
-import styles from "./howItWorks.module.css";
-
-function reducedMotion(): boolean {
-  try {
-    if (document.documentElement.getAttribute("data-reduce-motion") === "true") return true;
-  } catch {}
-  return !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-}
+import { readReduced, useReducedMotion } from "./useReducedMotion";
 
 /**
- * The "Focus" panel — a frosted IceTimer that melts (progress 0 → 1 over 5.2s)
- * the first time it scrolls into view. Mirrors the original runFocus() demo.
+ * The Focus panel (#hiwFocus). The first time 40% of it is on screen the
+ * IceTimer melts 0 → 1 over 5.2s in 70ms steps (the design's runFocus());
+ * with reduced motion it jumps to half-melted and never drips.
  */
-export function FocusDemo() {
+/**
+ * The design passes size="128" as a string and style="margin-bottom:12px" on
+ * the x-import host. The DC runtime drops the host style, and the unitless
+ * string width/height are invalid CSS, so the approved render has a timer root
+ * that shrinks to the 76.8px cube (the ring overflows it) and no margin. Auto
+ * sizing reproduces that box exactly.
+ */
+const IN_DESIGN_RENDER = { width: "auto", height: "auto" } as const;
+
+export function FocusDemo({ panelClassName }: { panelClassName: string }) {
   const rootRef = useRef<HTMLDivElement>(null);
   const [focusMelt, setFocusMelt] = useState(0);
-  const started = useRef(false);
+  const reduced = useReducedMotion();
 
   useEffect(() => {
     const el = rootRef.current;
     if (!el) return;
+    let timer: number | undefined;
 
-    let raf = 0;
-    const run = () => {
-      if (started.current) return;
-      started.current = true;
-      if (reducedMotion()) {
+    const runFocus = () => {
+      if (readReduced()) {
         setFocusMelt(0.5);
         return;
       }
@@ -37,16 +38,16 @@ export function FocusDemo() {
       const step = () => {
         const p = Math.min(1, (performance.now() - start) / dur);
         setFocusMelt(p);
-        if (p < 1) raf = requestAnimationFrame(step);
+        if (p < 1) timer = window.setTimeout(step, 70);
       };
-      raf = requestAnimationFrame(step);
+      step();
     };
 
     const io = new IntersectionObserver(
       (entries, ob) => {
         entries.forEach((e) => {
           if (e.isIntersecting) {
-            run();
+            runFocus();
             ob.disconnect();
           }
         });
@@ -56,11 +57,11 @@ export function FocusDemo() {
     io.observe(el);
     return () => {
       io.disconnect();
-      if (raf) cancelAnimationFrame(raf);
+      if (timer !== undefined) window.clearTimeout(timer);
     };
   }, []);
 
-  const focusDrip = focusMelt > 0.04 && focusMelt < 0.97;
+  const focusDrip = focusMelt > 0.04 && focusMelt < 0.97 && !reduced;
 
   return (
     <div
@@ -69,7 +70,7 @@ export function FocusDemo() {
       style={{ flex: 1.05, minWidth: 290, display: "flex", justifyContent: "center" }}
       data-reveal=""
     >
-      <div className={styles.panel}>
+      <div className={panelClassName}>
         <div
           style={{
             background: "#fff",
@@ -91,7 +92,7 @@ export function FocusDemo() {
             drip={focusDrip}
             expr="focused"
             size={128}
-            style={{ marginBottom: 12 }}
+            style={IN_DESIGN_RENDER}
           />
           <div
             style={{

@@ -1043,9 +1043,8 @@ export default function SciencePage() {
               size={74}
               rating={4}
               expr="happy"
-              style={{
-                filter: "drop-shadow(0 12px 26px rgba(107,92,240,.28))",
-              }}
+              // No drop-shadow: the canvas drops styles on design-system imports,
+              // so the approved render has none.
             />
           </div>
           <h2

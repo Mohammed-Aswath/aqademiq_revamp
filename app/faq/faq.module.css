@@ -1,3 +1,8 @@
+/* Design page rule `a{font-weight:600}` (colour/hover come from globals.css).
+   :where() keeps its specificity at a bare `a`, as in the design. */
+:where(.page) a {
+  font-weight: 600;
+}
 .acc details {
   border-bottom: 1px solid rgba(0, 0, 0, 0.07);
 }
@@ -55,4 +60,16 @@
     opacity: 1;
     transform: none;
   }
+}
+:global(html[data-dyslexia="true"]) .ans {
+  font-family: Verdana, "Trebuchet MS", system-ui, sans-serif !important;
+  letter-spacing: 0.015em !important;
+  line-height: 1.8 !important;
+}
+
+/* Readable font: the design's own rule also sets `p` to line-height 1.8, after
+   the site-wide 1.75 from the footer (globals.css). Same specificity as the
+   design's `html[data-dyslexia="true"] p`. */
+:global(html[data-dyslexia="true"]) :where(.page) p {
+  line-height: 1.8 !important;
 }

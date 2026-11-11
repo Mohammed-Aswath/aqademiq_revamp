@@ -87,7 +87,8 @@ html[data-reduce-motion="true"] [data-reveal] {
 html[data-dyslexia="true"] p,
 html[data-dyslexia="true"] li,
 html[data-dyslexia="true"] a,
-html[data-dyslexia="true"] span {
+/* Icon spans are ligatures: a text font would spell them out ("expand_more"). */
+html[data-dyslexia="true"] span:not(.material-icons-outlined):not(.material-icons) {
   font-family: Verdana, "Trebuchet MS", system-ui, sans-serif !important;
   letter-spacing: 0.015em !important;
 }

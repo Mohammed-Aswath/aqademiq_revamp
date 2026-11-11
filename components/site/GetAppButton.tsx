@@ -19,7 +19,7 @@ export function GetAppButton({
 }) {
   const { openGetApp } = useApp();
   return (
-    <button onClick={openGetApp} style={style} className={className}>
+    <button type="button" onClick={openGetApp} style={style} className={className}>
       {children}
     </button>
   );

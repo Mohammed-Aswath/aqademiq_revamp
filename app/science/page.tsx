@@ -892,8 +892,8 @@ export default function SciencePage() {
               </span>
               <span style={refText}>
                 Csikszentmihalyi, M. (1990).{" "}
-                <em>Flow: The Psychology of Optimal Experience.</em> Harper &amp;
-                Row.
+                <em>Flow: The Psychology of Optimal Experience.</em>{" "}
+                Harper &amp; Row.
               </span>
             </li>
             <li id="r5" className={styles.refrow} style={refRowStyle}>

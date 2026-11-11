@@ -1,40 +1,74 @@
 "use client";
 
-import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { APP_LOGIN_URL, APP_URL, CONTACT_EMAIL } from "@/lib/config";
-import logo from "@/public/logo.png";
+import { APP_URL, CONTACT_EMAIL } from "@/lib/config";
+import { useLoginHref } from "@/lib/useLoginHref";
+import lockup from "@/public/assets/brand/aqademiq-lockup-white.png";
+import r13 from "@/public/assets/brand/r13-lockup-night.png";
 import { useApp } from "./AppProvider";
 import styles from "./SiteFooter.module.css";
 
-const COL_HEAD: CSSProperties = {
-  fontFamily: "var(--font-mono)",
-  fontSize: 11,
-  letterSpacing: ".16em",
-  textTransform: "uppercase",
-  color: "#8e8a83",
-  marginBottom: 4,
-};
+type FooterLink = { label: string; href: string };
 
-const LINK_FS: CSSProperties = { fontSize: 14.5 };
+// Section anchors are load-bearing: each one names an id on its target page.
+const COLUMNS: { head: string; links: FooterLink[] }[] = [
+  {
+    head: "Product",
+    links: [
+      { label: "How it works", href: "/how-it-works" },
+      { label: "App freeze", href: "/how-it-works#freeze" },
+      { label: "Planning", href: "/how-it-works#plan" },
+      { label: "Import", href: "/how-it-works#import" },
+      { label: "Ada", href: "/how-it-works#ada" },
+    ],
+  },
+  {
+    head: "Focus",
+    links: [
+      { label: "Focus timer", href: "/how-it-works#focus" },
+      { label: "Prism sound", href: "/science#prism" },
+      { label: "Haptics", href: "/how-it-works#feel" },
+      { label: "Lock Screen & Watch", href: "/how-it-works#ambient" },
+      { label: "The Core", href: "/how-it-works#core" },
+    ],
+  },
+  {
+    head: "Students",
+    links: [
+      { label: "For students", href: "/students" },
+      { label: "Exam season", href: "/students#exam-season" },
+      { label: "The science", href: "/science" },
+    ],
+  },
+  {
+    head: "Company",
+    links: [
+      { label: "About", href: "/about" },
+      { label: "FAQ", href: "/faq" },
+      { label: "Contact", href: `mailto:${CONTACT_EMAIL}` },
+      { label: "Privacy", href: "/privacy-policy" },
+      { label: "Terms", href: "/terms-of-use" },
+    ],
+  },
+];
 
-function toggleStyle(on: boolean): CSSProperties {
-  return {
-    padding: "7px 13px",
-    borderRadius: 100,
-    fontSize: 12.5,
-    fontWeight: 700,
-    fontFamily: "var(--font-sans)",
-    cursor: "pointer",
-    border: `1.5px solid ${on ? "transparent" : "rgba(255,255,255,.22)"}`,
-    background: on ? "#6b5cf0" : "transparent",
-    color: on ? "#fff" : "rgba(244,243,240,.7)",
-  };
+function FooterAnchor({ label, href }: FooterLink) {
+  // mailto: and other non-route hrefs stay plain anchors.
+  return href.startsWith("/") ? (
+    <Link className={styles.link} href={href}>
+      {label}
+    </Link>
+  ) : (
+    <a className={styles.link} href={href}>
+      {label}
+    </a>
+  );
 }
 
 export function SiteFooter() {
-  const { openGetApp, reduce, dyslexia, toggleReduce, toggleDyslexia } = useApp();
+  const { openGetApp } = useApp();
+  const loginHref = useLoginHref();
 
   return (
     <footer style={{ background: "#14130f", color: "#f4f3f0", fontFamily: "var(--font-sans)" }}>
@@ -42,7 +76,7 @@ export function SiteFooter() {
         style={{
           maxWidth: 1200,
           margin: "0 auto",
-          padding: "clamp(60px,8vw,104px) clamp(20px,6vw,80px) 36px",
+          padding: "clamp(60px,8vw,104px) clamp(20px,6vw,80px) 34px",
         }}
       >
         <div
@@ -57,18 +91,18 @@ export function SiteFooter() {
           }}
         >
           <div style={{ maxWidth: 520 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 11, marginBottom: 22 }}>
+            <Link
+              href="/"
+              aria-label="Aqademiq home"
+              style={{ display: "inline-flex", alignItems: "center", marginBottom: 22 }}
+            >
               <Image
-                src={logo}
+                src={lockup}
                 alt="Aqademiq"
-                width={36}
-                height={36}
-                style={{ height: 36, width: 36, objectFit: "contain", flexShrink: 0 }}
+                sizes="162px"
+                style={{ height: 44, width: "auto", display: "block" }}
               />
-              <span style={{ fontFamily: "var(--font-sans)", fontWeight: 800, fontSize: 24, letterSpacing: "-.02em" }}>
-                Aqademiq
-              </span>
-            </div>
+            </Link>
             <p
               style={{
                 fontFamily: "var(--font-display)",
@@ -85,6 +119,7 @@ export function SiteFooter() {
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 14, minWidth: 210 }}>
             <a
+              className={styles.cta}
               href={APP_URL}
               style={{
                 display: "inline-flex",
@@ -103,6 +138,7 @@ export function SiteFooter() {
               Start studying free
             </a>
             <button
+              className={styles.cta}
               onClick={openGetApp}
               style={{
                 display: "inline-flex",
@@ -124,102 +160,49 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <nav
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit,minmax(150px,1fr))",
-            gap: "36px 24px",
-            padding: "clamp(44px,6vw,68px) 0",
-          }}
-        >
-          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-            <div style={COL_HEAD}>Product</div>
-            <Link className={styles.link} href="/how-it-works" style={LINK_FS}>How it works</Link>
-            <Link className={styles.link} href="/how-it-works#focus" style={LINK_FS}>Focus &amp; sound</Link>
-            <Link className={styles.link} href="/how-it-works#plan" style={LINK_FS}>Planning</Link>
-            <Link className={styles.link} href="/how-it-works#ada" style={LINK_FS}>Ada</Link>
-            <Link className={styles.link} href="/science" style={LINK_FS}>The science</Link>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-            <div style={COL_HEAD}>For you</div>
-            <Link className={styles.link} href="/students" style={LINK_FS}>Students</Link>
-            <a className={styles.link} href="#" style={LINK_FS}>Exam season</a>
-            <a className={styles.link} href="#" style={LINK_FS}>ADHD &amp; focus</a>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-            <div style={COL_HEAD}>Company</div>
-            <Link className={styles.link} href="/about" style={LINK_FS}>About</Link>
-            <Link className={styles.link} href="/about" style={LINK_FS}>Manifesto</Link>
-            <a className={styles.link} href="#" style={LINK_FS}>Blog</a>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-            <div style={COL_HEAD}>Get started</div>
-            <a className={styles.link} href={APP_URL} style={LINK_FS}>Start free on the web</a>
-            <button
-              onClick={openGetApp}
-              className={styles.link}
-              style={{
-                ...LINK_FS,
-                background: "none",
-                border: "none",
-                padding: 0,
-                textAlign: "left",
-                cursor: "pointer",
-                fontFamily: "var(--font-sans)",
-              }}
-            >
+        <nav className={styles.nav} aria-label="Footer">
+          {COLUMNS.map((col) => (
+            <div className={styles.col} key={col.head}>
+              <div className={styles.head}>{col.head}</div>
+              {col.links.map((l) => (
+                <FooterAnchor key={l.label} {...l} />
+              ))}
+            </div>
+          ))}
+          <div className={styles.col}>
+            <div className={styles.head}>Get started</div>
+            <a className={styles.link} href={APP_URL}>
+              Start free on the web
+            </a>
+            <button className={`${styles.link} ${styles.btn}`} onClick={openGetApp}>
               Get the app
             </button>
-            <a className={styles.link} href={APP_LOGIN_URL} style={LINK_FS}>Log in</a>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-            <div style={COL_HEAD}>Support &amp; legal</div>
-            <Link className={styles.link} href="/support" style={LINK_FS}>Support</Link>
-            <Link className={styles.link} href="/faq" style={LINK_FS}>FAQ</Link>
-            <a className={styles.link} href={`mailto:${CONTACT_EMAIL}`} style={LINK_FS}>Contact</a>
-            <Link className={styles.link} href="/privacy-policy" style={LINK_FS}>Privacy</Link>
-            <Link className={styles.link} href="/terms-of-use" style={LINK_FS}>Terms</Link>
-            <a className={styles.link} href="#" style={LINK_FS}>Your data · Accessibility</a>
+            <a className={styles.link} href={loginHref}>
+              Log in
+            </a>
           </div>
         </nav>
 
         <div
           style={{
             display: "flex",
-            flexWrap: "wrap",
-            gap: "18px 28px",
-            justifyContent: "space-between",
-            alignItems: "center",
-            paddingTop: 32,
+            justifyContent: "center",
+            paddingTop: 30,
             borderTop: "1px solid rgba(255,255,255,.1)",
           }}
         >
-          <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "#8e8a83", letterSpacing: ".02em" }}>
-            R13 Labs · © 2026 Aqademiq
-          </span>
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <span
-              style={{
-                fontSize: 11,
-                color: "#8e8a83",
-                fontFamily: "var(--font-mono)",
-                letterSpacing: ".1em",
-                textTransform: "uppercase",
-                marginRight: 2,
-              }}
-            >
-              Comfort
+          <a
+            className={styles.sig}
+            href="https://r13labs.com"
+            target="_blank"
+            rel="noopener"
+            aria-label="A product of R13 Labs. Opens r13labs.com"
+          >
+            <span style={{ fontSize: 15, fontWeight: 500, letterSpacing: ".005em", lineHeight: 1 }}>
+              A product of
             </span>
-            <button className={styles.toggle} onClick={toggleReduce} style={toggleStyle(reduce)}>
-              Reduce motion
-            </button>
-            <button className={styles.toggle} onClick={toggleDyslexia} style={toggleStyle(dyslexia)}>
-              Readable font
-            </button>
-          </div>
-          <span style={{ fontFamily: "var(--font-display)", fontStyle: "italic", fontSize: 15, color: "rgba(244,243,240,.55)" }}>
-            Private by design.
-          </span>
+            <Image src={r13} alt="" sizes="103px" style={{ height: 24, width: "auto", display: "block" }} />
+          </a>
         </div>
       </div>
     </footer>

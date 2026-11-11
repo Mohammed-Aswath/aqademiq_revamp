@@ -1,12 +1,74 @@
+.nav {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 40px 24px;
+  padding: clamp(44px, 6vw, 68px) 0;
+}
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  min-width: 0;
+}
+.head {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #8e8a83;
+  margin-bottom: 5px;
+}
 .link {
-  color: rgba(244, 243, 240, 0.6);
+  color: rgba(244, 243, 240, 0.66);
   text-decoration: none;
+  font-size: 14.5px;
+  line-height: 1.35;
   transition: color 0.2s var(--ease-standard);
 }
 .link:hover {
   color: #fff;
 }
-.toggle {
+/* "Get the app" is a button that reads as a link. */
+.btn {
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
   cursor: pointer;
-  transition: all 0.2s var(--ease-standard);
+  font-family: var(--font-sans);
+}
+
+.sig {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  text-decoration: none;
+  color: rgba(244, 243, 240, 0.62);
+  transition:
+    color 0.2s var(--ease-standard),
+    opacity 0.2s;
+}
+.sig:hover {
+  color: #fff;
+}
+.sig img {
+  opacity: 0.92;
+  transition: opacity 0.2s;
+}
+.sig:hover img {
+  opacity: 1;
+}
+
+.link:focus-visible,
+.sig:focus-visible,
+.cta:focus-visible {
+  outline: 2px solid #cbbcfd;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+@media (max-width: 640px) {
+  .nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }

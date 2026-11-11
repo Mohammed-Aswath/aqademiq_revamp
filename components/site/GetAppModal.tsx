@@ -1,17 +1,41 @@
 "use client";
 
-import { AdaCube } from "@/components/ds";
+import { useEffect } from "react";
+import Image from "next/image";
 import { APP_STORE_URL, APP_URL, PLAY_STORE_URL } from "@/lib/config";
+import icon from "@/public/assets/brand/aqademiq-icon-128.png";
 import { useApp } from "./AppProvider";
 
+const storeBtn: React.CSSProperties = {
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: 9,
+  padding: "14px 20px",
+  background: "#111",
+  color: "#fff",
+  borderRadius: 100,
+  fontWeight: 800,
+  fontSize: 15,
+  textDecoration: "none",
+};
+
 /**
- * The "Get the app" modal — opened from the header/footer/hero "Get the app"
- * CTAs (via AppProvider.openGetApp). The original .dc.html modal carried a dead
- * email-capture success branch with no visible form; we render the app-store
- * content directly.
+ * The "Get the app" modal, opened from every "Get the app" CTA through
+ * AppProvider.openGetApp. Escape and the scrim both close it.
  */
 export function GetAppModal() {
   const { getAppOpen, closeGetApp } = useApp();
+
+  useEffect(() => {
+    if (!getAppOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeGetApp();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [getAppOpen, closeGetApp]);
+
   if (!getAppOpen) return null;
 
   return (
@@ -30,6 +54,9 @@ export function GetAppModal() {
       }}
     >
       <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Get the Aqademiq app"
         onClick={(e) => e.stopPropagation()}
         style={{
           background: "var(--aq-paper)",
@@ -44,6 +71,8 @@ export function GetAppModal() {
         <button
           onClick={closeGetApp}
           aria-label="Close"
+          // A modal that doesn't take focus leaves keyboard users behind it.
+          autoFocus
           style={{
             position: "absolute",
             top: 16,
@@ -65,80 +94,44 @@ export function GetAppModal() {
           ✕
         </button>
         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 18 }}>
-          <AdaCube size={44} rating={4} expr="happy" />
+          <Image src={icon} alt="" sizes="44px" style={{ width: 44, height: "auto", display: "block" }} />
         </div>
-        <div>
-          <h3
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: 27,
-              fontWeight: 600,
-              lineHeight: 1.15,
-              margin: "0 0 10px",
-              color: "#111",
-            }}
-          >
-            Aqademiq is on your phone.
-          </h3>
-          <p style={{ fontSize: 15, lineHeight: 1.55, color: "#5f5f5f", margin: "0 0 20px" }}>
-            The full experience, gentle haptics and all, now on iPhone and Android. And right now
-            it&apos;s completely free.
-          </p>
-          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            <a
-              href={APP_STORE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: 9,
-                padding: "14px 20px",
-                background: "#111",
-                color: "#fff",
-                borderRadius: 100,
-                fontWeight: 800,
-                fontSize: 15,
-                textDecoration: "none",
-              }}
-            >
-              <span className="material-icons-outlined" style={{ fontSize: 19 }}>
-                phone_iphone
-              </span>
-              Download on the App Store
-            </a>
-            <a
-              href={PLAY_STORE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: 9,
-                padding: "14px 20px",
-                background: "#111",
-                color: "#fff",
-                borderRadius: 100,
-                fontWeight: 800,
-                fontSize: 15,
-                textDecoration: "none",
-              }}
-            >
-              <span className="material-icons-outlined" style={{ fontSize: 19 }}>
-                android
-              </span>
-              Get it on Google Play
-            </a>
-          </div>
-          <p style={{ fontSize: 12.5, lineHeight: 1.5, color: "#8e8a83", margin: "14px 0 0" }}>
-            Free to use today. Prefer a bigger screen?{" "}
-            <a href={APP_URL} style={{ color: "#5941d6", fontWeight: 700 }}>
-              Open Aqademiq on the web.
-            </a>
-          </p>
+        <h3
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: 27,
+            fontWeight: 600,
+            lineHeight: 1.15,
+            margin: "0 0 10px",
+            color: "#111",
+          }}
+        >
+          Aqademiq is on your phone.
+        </h3>
+        <p style={{ fontSize: 15, lineHeight: 1.55, color: "#5f5f5f", margin: "0 0 20px" }}>
+          App freeze, the new haptics and everything else, on iPhone and Android. And right now
+          it&apos;s completely free.
+        </p>
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+          <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer" style={storeBtn}>
+            <span className="material-icons-outlined" aria-hidden="true" style={{ fontSize: 19 }}>
+              phone_iphone
+            </span>
+            Download on the App Store
+          </a>
+          <a href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer" style={storeBtn}>
+            <span className="material-icons-outlined" aria-hidden="true" style={{ fontSize: 19 }}>
+              android
+            </span>
+            Get it on Google Play
+          </a>
         </div>
+        <p style={{ fontSize: 12.5, lineHeight: 1.5, color: "#6b675f", margin: "14px 0 0" }}>
+          Free to use today. Prefer a bigger screen?{" "}
+          <a href={APP_URL} style={{ color: "#5941d6", fontWeight: 700 }}>
+            Open Aqademiq on the web.
+          </a>
+        </p>
       </div>
     </div>
   );

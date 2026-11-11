@@ -19,6 +19,15 @@ export const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://aqademiq.app"
  */
 export const APP_LOGIN_URL = `${APP_URL.replace(/\/+$/, "")}/signin`;
 
+/**
+ * "Log in" on a phone opens the app rather than the web app. A device-aware
+ * smart link: the App Store on iOS, Google Play on Android, and the app itself
+ * where it's installed. Desktop keeps APP_LOGIN_URL. Read it through
+ * `useLoginHref`, which only swaps to this after hydration.
+ */
+export const APP_LOGIN_MOBILE_URL =
+  process.env.NEXT_PUBLIC_APP_LOGIN_MOBILE_URL ?? "https://onelink.to/q5tsxu";
+
 /** App-store listings. Env vars still win so a preview can aim elsewhere. */
 export const APP_STORE_URL =
   process.env.NEXT_PUBLIC_APP_STORE_URL ??

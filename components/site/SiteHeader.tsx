@@ -4,8 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { APP_LOGIN_URL, APP_URL } from "@/lib/config";
-import logo from "@/public/logo.png";
+import { APP_URL } from "@/lib/config";
+import { useLoginHref } from "@/lib/useLoginHref";
+import lockup from "@/public/assets/brand/aqademiq-lockup-ink.png";
 import styles from "./SiteHeader.module.css";
 
 const NAV: { href: string; label: string; key: string }[] = [
@@ -29,6 +30,7 @@ export function SiteHeader() {
   const active = activeKey(pathname);
   const [menuOpen, setMenuOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
+  const loginHref = useLoginHref();
 
   useEffect(() => {
     const el = headerRef.current;
@@ -79,33 +81,21 @@ export function SiteHeader() {
       >
         <Link
           href="/"
+          aria-label="Aqademiq home"
           style={{
             display: "flex",
             alignItems: "center",
-            gap: 10,
             textDecoration: "none",
             flexShrink: 0,
           }}
         >
           <Image
-            src={logo}
+            src={lockup}
             alt="Aqademiq"
-            width={32}
-            height={32}
             priority
-            style={{ height: 32, width: 32, objectFit: "contain", flexShrink: 0 }}
+            sizes="125px"
+            style={{ height: 34, width: "auto", display: "block" }}
           />
-          <span
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontWeight: 800,
-              fontSize: 21,
-              letterSpacing: "-.02em",
-              color: "#111",
-            }}
-          >
-            Aqademiq
-          </span>
         </Link>
 
         <nav
@@ -132,7 +122,7 @@ export function SiteHeader() {
             flexShrink: 0,
           }}
         >
-          <a className={styles.login} href={APP_LOGIN_URL}>
+          <a className={styles.login} href={loginHref}>
             Log in
           </a>
           <a
@@ -209,7 +199,7 @@ export function SiteHeader() {
               </Link>
             ))}
             <a
-              href={APP_LOGIN_URL}
+              href={loginHref}
               style={{
                 padding: "14px 0",
                 color: "#57534d",

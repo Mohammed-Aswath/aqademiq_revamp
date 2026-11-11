@@ -23,6 +23,10 @@ const eslintConfig = defineConfig([
     files: [
       "components/home/HomeClient.tsx",
       "components/site/AppProvider.tsx",
+      // Home V2 sections that carry HomeClient's imperative controllers over.
+      "components/home/v2/HeroSection.tsx",
+      "components/home/v2/MeltSection.tsx",
+      "components/home/v2/AdaSection.tsx",
     ],
     rules: {
       "react-hooks/set-state-in-effect": "off",

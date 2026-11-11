@@ -95,3 +95,8 @@ html[data-dyslexia="true"] p,
 html[data-dyslexia="true"] li {
   line-height: 1.75 !important;
 }
+
+/* Section anchors land below the sticky header. */
+[id] {
+  scroll-margin-top: 80px;
+}

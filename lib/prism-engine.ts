@@ -8,6 +8,7 @@
  *   • Pulse   — one-shot per beat on a BPM clock (density > 1.5 → half-beats)
  *   • Spark   — stochastic one-shots, min 3s gap, random pan ±0.7, vol 0.4
  *
+ * Each mode chooses its own subset of those stems (see PRISM_MODES),
  * over a master bus: biquad low-pass → algorithmic reverb (convolver IR) →
  * gain → compressor → analyser → output. Stems are the compressed MP3s under
  * /audio/prism (built from the WAV stems by scripts/build-audio.mjs).
@@ -25,24 +26,31 @@ const TEX_URLS = {
   hum: `${BASE}/tex-hum.mp3`,
 } as const;
 // Pulses with weighted-pick probability (Stem.probability in the spec).
-const PULSES: { url: string; prob: number }[] = [
-  { url: `${BASE}/pulse-dreams.mp3`, prob: 0.6 },
-  { url: `${BASE}/pulse-eternity.mp3`, prob: 0.4 },
-];
-const SPARKS: string[] = [
-  `${BASE}/spark-kalimba.mp3`,
-  `${BASE}/spark-pluck.mp3`,
-  `${BASE}/spark-rhodes-bassy.mp3`,
-  `${BASE}/spark-rhodes-full.mp3`,
-  `${BASE}/spark-rhodes-warm.mp3`,
-];
+const PULSES = {
+  dreams: { url: `${BASE}/pulse-dreams.mp3`, prob: 0.6 },
+  eternity: { url: `${BASE}/pulse-eternity.mp3`, prob: 0.4 },
+} as const;
+const SPARKS = {
+  kalimba: `${BASE}/spark-kalimba.mp3`,
+  pluck: `${BASE}/spark-pluck.mp3`,
+  rhodesBassy: `${BASE}/spark-rhodes-bassy.mp3`,
+  rhodesFull: `${BASE}/spark-rhodes-full.mp3`,
+  rhodesWarm: `${BASE}/spark-rhodes-warm.mp3`,
+} as const;
 
 export type PadKey = keyof typeof PAD_URLS;
 export type TextureKey = keyof typeof TEX_URLS;
+export type PulseKey = keyof typeof PULSES;
+export type SparkKey = keyof typeof SPARKS;
 
 export interface PrismParams {
   padKey: PadKey;
+  padLevel: number; // 0-1 (the spec's fixed 0.6, now per mode)
   textureKey: TextureKey;
+  /** Which pulse stems this mode draws from (empty → no rhythm). */
+  pulses: PulseKey[];
+  /** Which spark stems this mode draws from (empty → no sparks). */
+  sparks: SparkKey[];
   masterLpfCutoff: number; // Hz
   pulseBpm: number;
   pulseVolume: number; // 0-1
@@ -63,30 +71,40 @@ export interface PrismMode {
 }
 
 /**
- * The five hero buttons mapped onto Prism parameter presets over the same Focus
- * stem set (the spec's Focus / Mellow / Break modes are themselves param subsets
- * of the shared stems). Labels + colors preserve the original hero UI.
+ * The five hero buttons, each its own arrangement of the one Focus stem set.
+ * Like the app's per-mode manifests (sound_manifest.dart), a mode picks a
+ * subset of pads, pulses and sparks, not just different knob settings: when
+ * Deep Work, Flow and Review shared every stem and differed only in tempo and
+ * a texture sitting 12 dB under the pad, they sounded the same.
+ *
+ * - Deep Work: "a denser texture on purpose". Drone, rain brought forward,
+ *   both bass pulses on half-beats, bright and sparse kalimba/pluck sparks.
+ * - Flow: "ride a good stretch". Choir pad, sea, a single melodic bass on the
+ *   beat at a quicker tempo, Rhodes phrases more often.
+ * - Review: "going back over notes". Drone pulled back over a steady hum,
+ *   one soft slow pulse, rare plucks, darker filter.
+ * - Wind-down: choir and sea, no rhythm, one warm Rhodes, very dark.
  */
 export const PRISM_MODES: Record<PrismModeKey, PrismMode> = {
   deepwork: {
     label: "Deep Work",
     color: "#6b5cf0",
-    params: { padKey: "drone", textureKey: "rain", masterLpfCutoff: 18000, pulseBpm: 77, pulseVolume: 0.8, pulseDensity: 2, sparkTriggerProb: 0.3, textureVolumeDb: -15, padReverbWet: 0.4, masterGain: 1.0 },
+    params: { padKey: "drone", padLevel: 0.45, textureKey: "rain", pulses: ["dreams", "eternity"], sparks: ["kalimba", "pluck"], masterLpfCutoff: 18000, pulseBpm: 77, pulseVolume: 0.8, pulseDensity: 2, sparkTriggerProb: 0.3, textureVolumeDb: -10, padReverbWet: 0.3, masterGain: 1.0 },
   },
   flow: {
     label: "Flow",
     color: "#2a9d6b",
-    params: { padKey: "drone", textureKey: "sea", masterLpfCutoff: 16000, pulseBpm: 84, pulseVolume: 0.7, pulseDensity: 2, sparkTriggerProb: 0.35, textureVolumeDb: -17, padReverbWet: 0.35, masterGain: 1.0 },
+    params: { padKey: "choir", padLevel: 0.55, textureKey: "sea", pulses: ["dreams"], sparks: ["rhodesFull", "rhodesWarm", "rhodesBassy"], masterLpfCutoff: 12000, pulseBpm: 84, pulseVolume: 0.6, pulseDensity: 1, sparkTriggerProb: 0.6, textureVolumeDb: -15, padReverbWet: 0.45, masterGain: 1.0 },
   },
   review: {
     label: "Review",
     color: "#e8a430",
-    params: { padKey: "drone", textureKey: "hum", masterLpfCutoff: 9000, pulseBpm: 70, pulseVolume: 0.55, pulseDensity: 1, sparkTriggerProb: 0.22, textureVolumeDb: -16, padReverbWet: 0.45, masterGain: 0.95 },
+    params: { padKey: "drone", padLevel: 0.35, textureKey: "hum", pulses: ["dreams"], sparks: ["pluck"], masterLpfCutoff: 3500, pulseBpm: 64, pulseVolume: 0.4, pulseDensity: 1, sparkTriggerProb: 0.12, textureVolumeDb: -9, padReverbWet: 0.55, masterGain: 0.95 },
   },
   winddown: {
     label: "Wind-down",
     color: "#777777",
-    params: { padKey: "choir", textureKey: "sea", masterLpfCutoff: 700, pulseBpm: 60, pulseVolume: 0.0, pulseDensity: 1, sparkTriggerProb: 0.06, textureVolumeDb: -18, padReverbWet: 0.55, masterGain: 0.8 },
+    params: { padKey: "choir", padLevel: 0.6, textureKey: "sea", pulses: [], sparks: ["rhodesWarm"], masterLpfCutoff: 700, pulseBpm: 60, pulseVolume: 0.0, pulseDensity: 1, sparkTriggerProb: 0.06, textureVolumeDb: -18, padReverbWet: 0.55, masterGain: 0.8 },
   },
   nosound: { label: "No sound", color: "#9aa3b2", params: null },
 };
@@ -96,11 +114,10 @@ export const PRISM_MODE_KEYS = Object.keys(PRISM_MODES) as PrismModeKey[];
 const ALL_URLS = [
   ...Object.values(PAD_URLS),
   ...Object.values(TEX_URLS),
-  ...PULSES.map((p) => p.url),
-  ...SPARKS,
+  ...Object.values(PULSES).map((p) => p.url),
+  ...Object.values(SPARKS),
 ];
 
-const PAD_LEVEL = 0.6; // spec: pad fades to 0.6 linear
 const SPARK_LEVEL = 0.4; // spec: fixed 0.4
 const SPARK_PAN = 0.7; // spec: ±0.7
 const SPARK_MIN_GAP = 3000; // spec: 3s
@@ -255,7 +272,7 @@ export class PrismEngine {
     // pad + texture loops, 3s fade-in
     this.padSrc = this.startLoopSource(PAD_URLS[params.padKey], this.padGain!);
     this.texSrc = this.startLoopSource(TEX_URLS[params.textureKey], this.texGain!);
-    this.ramp(this.padGain!, PAD_LEVEL, 3);
+    this.ramp(this.padGain!, params.padLevel, 3);
     this.ramp(this.texGain!, dbToLinear(params.textureVolumeDb), 3);
 
     this.applyDsp(params, 3);
@@ -303,11 +320,12 @@ export class PrismEngine {
 
   private triggerPulse() {
     const p = this.params;
-    if (!p || p.pulseVolume <= 0.001 || !this.ctx || this.ctx.state !== "running") return;
-    // weighted pick
-    let roll = Math.random() * PULSES.reduce((s, x) => s + x.prob, 0);
-    let pick = PULSES[0].url;
-    for (const x of PULSES) {
+    if (!p || p.pulseVolume <= 0.001 || !p.pulses.length || !this.ctx || this.ctx.state !== "running") return;
+    // weighted pick among this mode's pulses
+    const pool = p.pulses.map((k) => PULSES[k]);
+    let roll = Math.random() * pool.reduce((s, x) => s + x.prob, 0);
+    let pick: string = pool[0].url;
+    for (const x of pool) {
       roll -= x.prob;
       if (roll <= 0) {
         pick = x.url;
@@ -327,12 +345,12 @@ export class PrismEngine {
 
   private tryTriggerSpark() {
     const p = this.params;
-    if (!p || !this.ctx || this.ctx.state !== "running") return;
+    if (!p || !p.sparks.length || !this.ctx || this.ctx.state !== "running") return;
     const now = performance.now();
     if (now - this.lastSpark < SPARK_MIN_GAP) return;
     if (Math.random() > p.sparkTriggerProb) return;
     this.lastSpark = now;
-    const url = SPARKS[Math.floor(Math.random() * SPARKS.length)];
+    const url = SPARKS[p.sparks[Math.floor(Math.random() * p.sparks.length)]];
     const buf = this.buffers.get(url);
     if (!buf) return;
     const src = this.ctx.createBufferSource();
@@ -356,8 +374,8 @@ export class PrismEngine {
 
     if (prev && Math.abs(prev.pulseBpm - params.pulseBpm) > 1) this.scheduleBpm();
 
-    if (prev?.padKey !== params.padKey) this.swapLoop("pad", PAD_URLS[params.padKey], PAD_LEVEL);
-    else this.ramp(this.padGain!, PAD_LEVEL, 2);
+    if (prev?.padKey !== params.padKey) this.swapLoop("pad", PAD_URLS[params.padKey], params.padLevel);
+    else this.ramp(this.padGain!, params.padLevel, 2);
 
     const texTarget = dbToLinear(params.textureVolumeDb);
     if (prev?.textureKey !== params.textureKey)

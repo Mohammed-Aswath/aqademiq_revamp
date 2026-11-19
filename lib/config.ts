@@ -11,22 +11,11 @@
 export const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://aqademiq.app";
 
 /**
- * Sign-in specifically.
- *
- * "Start free" and "Log in" are different intents and deserve different
- * landings: a new visitor should meet the welcome screen, someone returning
- * should land on the form. `/signin` renders the sign-in pane directly.
+ * Where every "Log in" goes, on every device: the web app itself. (A /signin
+ * deep link and a phone-only app-store smart link both sent people somewhere
+ * other than aqademiq.app.)
  */
-export const APP_LOGIN_URL = `${APP_URL.replace(/\/+$/, "")}/signin`;
-
-/**
- * "Log in" on a phone opens the app rather than the web app. A device-aware
- * smart link: the App Store on iOS, Google Play on Android, and the app itself
- * where it's installed. Desktop keeps APP_LOGIN_URL. Read it through
- * `useLoginHref`, which only swaps to this after hydration.
- */
-export const APP_LOGIN_MOBILE_URL =
-  process.env.NEXT_PUBLIC_APP_LOGIN_MOBILE_URL ?? "https://onelink.to/q5tsxu";
+export const APP_LOGIN_URL = APP_URL;
 
 /** App-store listings. Env vars still win so a preview can aim elsewhere. */
 export const APP_STORE_URL =

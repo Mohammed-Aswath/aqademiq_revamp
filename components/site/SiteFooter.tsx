@@ -2,8 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { APP_URL, CONTACT_EMAIL } from "@/lib/config";
-import { useLoginHref } from "@/lib/useLoginHref";
+import { APP_LOGIN_URL, APP_URL, CONTACT_EMAIL } from "@/lib/config";
 import lockup from "@/public/assets/brand/aqademiq-lockup-white.png";
 import r13 from "@/public/assets/brand/r13-lockup-night.png";
 import { useApp } from "./AppProvider";
@@ -68,7 +67,6 @@ function FooterAnchor({ label, href }: FooterLink) {
 
 export function SiteFooter() {
   const { openGetApp } = useApp();
-  const loginHref = useLoginHref();
 
   return (
     <footer style={{ background: "#14130f", color: "#f4f3f0", fontFamily: "var(--font-sans)" }}>
@@ -177,7 +175,7 @@ export function SiteFooter() {
             <button className={`${styles.link} ${styles.btn}`} onClick={openGetApp}>
               Get the app
             </button>
-            <a className={styles.link} href={loginHref}>
+            <a className={styles.link} href={APP_LOGIN_URL}>
               Log in
             </a>
           </div>

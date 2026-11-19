@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, type CSSProperties, type FormEvent } from "react";
+import { useState, useSyncExternalStore, type CSSProperties, type FormEvent } from "react";
 import { AdaCube } from "@/components/ds";
 import { CONTACT_EMAIL } from "@/lib/config";
 
@@ -46,8 +46,14 @@ const ghost: CSSProperties = {
   fontWeight: 700,
 };
 
+const noSubscribe = () => () => {};
+
 export function UnsubscribeForm({ initialEmail }: { initialEmail: string }) {
   const [email, setEmail] = useState(initialEmail);
+  // Cloudflare's Email Address Obfuscation rewrites any address in the served
+  // HTML to "[email protected]" and patches it back with a script, which races
+  // hydration. So the address is only ever painted in the browser.
+  const hydrated = useSyncExternalStore(noSubscribe, () => true, () => false);
   const [status, setStatus] = useState<Status>("idle");
   const fromLink = initialEmail !== "";
 
@@ -93,7 +99,10 @@ export function UnsubscribeForm({ initialEmail }: { initialEmail: string }) {
       {fromLink ? (
         <p style={body}>
           We&apos;ll stop sending Aqademiq updates to{" "}
-          <b style={{ color: "#14130f", overflowWrap: "anywhere" }}>{email}</b>. No hard feelings.
+          <b style={{ color: "#14130f", overflowWrap: "anywhere" }}>
+            {hydrated ? email : "your address"}
+          </b>
+          . No hard feelings.
         </p>
       ) : (
         <>

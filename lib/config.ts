@@ -10,12 +10,16 @@
 /** The live web app. Env var still wins, so a preview can aim elsewhere. */
 export const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://aqademiq.app";
 
-/**
- * Where every "Log in" goes, on every device: the web app itself. (A /signin
- * deep link and a phone-only app-store smart link both sent people somewhere
- * other than aqademiq.app.)
- */
+/** "Log in" on a laptop or desktop: the web app itself. */
 export const APP_LOGIN_URL = APP_URL;
+
+/**
+ * "Log in" on a phone or tablet: a device-aware smart link that opens the app
+ * where it's installed, else the App Store or Google Play. Read both through
+ * `useLoginHref`, which only swaps to this after hydration.
+ */
+export const APP_LOGIN_MOBILE_URL =
+  process.env.NEXT_PUBLIC_APP_LOGIN_MOBILE_URL ?? "https://onelink.to/q5tsxu";
 
 /** App-store listings. Env vars still win so a preview can aim elsewhere. */
 export const APP_STORE_URL =

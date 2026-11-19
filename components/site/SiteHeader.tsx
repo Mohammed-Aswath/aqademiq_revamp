@@ -4,7 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { APP_LOGIN_URL, APP_URL } from "@/lib/config";
+import { APP_URL } from "@/lib/config";
+import { useLoginHref } from "@/lib/useLoginHref";
 import lockup from "@/public/assets/brand/aqademiq-lockup-ink.png";
 import styles from "./SiteHeader.module.css";
 
@@ -29,6 +30,7 @@ export function SiteHeader() {
   const active = activeKey(pathname);
   const [menuOpen, setMenuOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
+  const loginHref = useLoginHref();
 
   useEffect(() => {
     const el = headerRef.current;
@@ -120,7 +122,7 @@ export function SiteHeader() {
             flexShrink: 0,
           }}
         >
-          <a className={styles.login} href={APP_LOGIN_URL}>
+          <a className={styles.login} href={loginHref}>
             Log in
           </a>
           <a
@@ -197,7 +199,7 @@ export function SiteHeader() {
               </Link>
             ))}
             <a
-              href={APP_LOGIN_URL}
+              href={loginHref}
               style={{
                 padding: "14px 0",
                 color: "#57534d",
